@@ -179,6 +179,7 @@ alias cp='cp -iv'
 alias mv='mv -iv'
 alias rm='rm -i -v'
 alias mkd='mkdir -pv'
+alias open='xdg-open'
 
 # processes
 alias ka='killall'
@@ -217,4 +218,7 @@ alias ve='vim -o `fzf`'
 # Get External IP / Internet Speed
 alias myip="curl https://ipinfo.io/json" # or /ip for plain-text ip
 alias speedtest="curl -s https://raw.githubusercontent.com/sivel/speedtest-cli/master/speedtest.py | python -"
+
+# Stopwatch
+alias timer='echo "Timer started. Stop with Ctrl-D." && date && time cat && date'
 

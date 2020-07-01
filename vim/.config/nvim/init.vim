@@ -66,7 +66,6 @@ nnoremap ° ^
 
 " more intuitive enter behavior (add line without entering in insert mode)
 
-nmap <S-CR> O<Esc>
 nmap <CR> o<Esc>
 
 " Search results centered please
@@ -85,7 +84,7 @@ vnoremap <S-Tab> <
 " --------------------------------------------------------------------------------------------------------------------------------------------------------
 " |Setters & Vim configuration|
 " --------------------------------------------------------------------------------------------------------------------------------------------------------
-
+set clipboard+=unnamedplus
 " use 4 spaces instead of tabs during formatting
 set expandtab
 set noshowmode "get rid of built-in mode text because of lightline
@@ -93,7 +92,7 @@ set tabstop=4
 set shiftwidth=4
 set hlsearch
 set softtabstop=4
-" set timeout timeoutlen=1000 ttimeoutlen=100 " fix slow O inserts
+set timeout timeoutlen=1000 ttimeoutlen=100 " fix slow O inserts
 syntax on
 set guifont=Monospace\ 12 " Toy ciego
 set shortmess+=I " Disable the default Vim startup message.

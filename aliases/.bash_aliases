@@ -1,5 +1,14 @@
 #!/usr/bin/env bash
 
+# Python
+alias python='python3'
+
+# Get External IP / Internet Speed
+alias myip="curl https://ipinfo.io/json" # or /ip for plain-text ip
+alias speedtest="curl -s https://raw.githubusercontent.com/sivel/speedtest-cli/master/speedtest.py | python -"
+
+# Quickly serve the current directory as HTTP
+alias serve='ruby -run -e httpd . -p 8000' # Or python -m SimpleHTTPServer :)
 # apt aliases
 alias apti='sudo apt install'
 alias aptr='sudo apt remove'
@@ -48,3 +57,5 @@ alias jco="jupyter nbconvert"
 alias jn="jupyter notebook"
 alias jn-b="jupyter notebook --no-browser"
 
+alias lxd="ls -lhF ${colorflag}"
+alias lul="echo lul"
