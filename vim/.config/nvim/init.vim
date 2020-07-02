@@ -25,6 +25,7 @@ Plug 'tpope/vim-eunuch' "unix shell commands in vim command-line
 Plug 'luochen1990/rainbow'             " Rainbow parentheses
 Plug 'wlangstroth/vim-racket'   "racket support
 Plug 'vim-python/python-syntax' "python
+Plug 'rrethy/vim-hexokinase', { 'do': 'make hexokinase' } "color support (needs golang)
 " ciaranm/securemodelines " format c family language
 " Movement
 Plug 'easymotion/vim-easymotion'
@@ -336,3 +337,6 @@ command! -bang ProjectFiles call fzf#vim#files('~/Source', {'options':['--layout
 " Projectfile preview on, sh on (kinda laggy)
 "command! -bang ProjectFiles call fzf#vim#files('~/Source', {'options': ['--layout=reverse', '--info=inline', '--preview', '~/.vim/plugged/fzf.vim/bin/preview.sh {}']}, <bang>0)
 " --------------------------------------------------------------------------------------------------------------------------------------------------------
+" <vim-hexokinase>
+let g:Hexokinase_highlighters = ['backgroundfull']
+set termguicolors

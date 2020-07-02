@@ -148,6 +148,12 @@ bindkey -v
 # alias zshconfig="mate ~/.zshrc"
 # alias ohmyzsh="mate ~/.oh-my-zsh"
 
+# refresh config
+alias rf='source ~/.zshrc'
+
+# Enable aliases to be sudo’ed
+alias sudo='sudo '
+
 # package manager aliases
 alias apti='sudo apt install'
 alias aptr='sudo apt remove'
@@ -177,7 +183,8 @@ alias chmx='chmod +x'
 # file modifiers
 alias cp='cp -iv'
 alias mv='mv -iv'
-alias rm='rm -i -v'
+alias rm='rm -Iv'
+
 alias mkd='mkdir -pv'
 alias open='xdg-open'
 
