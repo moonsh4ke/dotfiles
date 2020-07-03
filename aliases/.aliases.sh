@@ -1,10 +1,13 @@
-# quick access to cfg files
+# quick access
+alias aliases='nvim ~/.aliases.sh'
 alias acfg='nvim ~/dotfiles/terminal/.alacritty.yml'
 alias vcfg='nvim ~/.config/nvim/init.vim'
 alias zcfg='nvim ~/.zshrc'
 alias tcfg='nvim ~/.tmux.conf'
 # refresh config
 alias rf='source ~/.zshrc'
+alias td='nvim ~/Documents/notes/todo.txt'
+alias shistory='nvim ~/.shistory.sh' 
 
 # Enable aliases to be sudo’ed
 alias sudo='sudo '
@@ -59,8 +62,8 @@ alias gD='git ls-files'
 alias ghostscript="/usr/local/bin/gs"
 
 ## Jupyter
-alias jc="jupyter console"
-alias jco="jupyter nbconvert"
+# alias jc="jupyter console"
+# alias jco="jupyter nbconvert"
 alias jn="jupyter notebook"
 alias jn-b="jupyter notebook --no-browser"
 
