@@ -2,7 +2,7 @@
 
 if pgrep -x "chrome" > /dev/null
 then
-    xdotool search --class chrome windowactivate %3
+    xdotool search --name "Google Chrome" windowactivate
 else
     google-chrome
 fi
