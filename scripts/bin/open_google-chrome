@@ -1,0 +1,8 @@
+#!/bin/bash
+
+if pgrep -x "chrome" > /dev/null
+then
+    xdotool search --class chrome windowactivate %3
+else
+    google-chrome
+fi
