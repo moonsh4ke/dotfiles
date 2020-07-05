@@ -12,38 +12,55 @@ Plug 'machakann/vim-highlightedyank'
 Plug 'morhetz/gruvbox' " colortheme
 Plug 'itchyny/lightline.vim' "configurable statusline
 Plug 'mhinz/vim-startify' " start screen
+" Git GUI
+"Plug 'airblade/vim-gitgutter'
+Plug 'tpope/vim-fugitive'             " Git interface
+"Plug 'airblade/vim-gitgutter'
+"Plug 'xuyuanp/nerdtree-git-plugin'    " Show status of files in NerdTree
+" --------------------------------
+
 " LSP, linting
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
 Plug 'dense-analysis/ale' "linting engine
 Plug 'maximbaz/lightline-ale' " linter status bar
+" --------------------------------
+
 " File management 
 Plug 'junegunn/fzf', { 'do': { -> fzf#install() } } "File finder
 Plug 'junegunn/fzf.vim'
 Plug 'preservim/nerdtree' "File explorer
 Plug 'tpope/vim-eunuch' "unix shell commands in vim command-line
+" --------------------------------
+
 " Syntax highlight
 Plug 'luochen1990/rainbow'             " Rainbow parentheses
 Plug 'wlangstroth/vim-racket'   "racket support
 Plug 'vim-python/python-syntax' "python
 Plug 'rrethy/vim-hexokinase', { 'do': 'make hexokinase' } "color support (needs golang)
+Plug 'https://github.com/plasticboy/vim-markdown'
 " ciaranm/securemodelines " format c family language
 " Movement
 Plug 'easymotion/vim-easymotion'
+" --------------------------------
+
 " Text manipulation
 Plug 'romainl/vim-cool' " Disables highlight when search is done
 Plug 'Yggdroot/indentLine' "Display the identation levelvs with thin vertical lines
 Plug 'tpope/vim-commentary' " Comment stuff out
 " Running Code
 Plug 'skywind3000/asyncrun.vim'
-" Git GUI
-"Plug 'airblade/vim-gitgutter'
-Plug 'tpope/vim-fugitive'             " Git interface
-"Plug 'airblade/vim-gitgutter'
-"Plug 'xuyuanp/nerdtree-git-plugin'    " Show status of files in NerdTree
+" --------------------------------
+
 " Tmux
 Plug 'tmux-plugins/vim-tmux' " syntax hl, commentary, documentation, :make
 Plug 'https://github.com/christoomey/vim-tmux-navigator' " vim movement in tmux
-"Misc
+" Plug 'https://github.com/roxma/vim-tmux-clipboard' " tmux cpy mode to unnamed registry
+" --------------------------------
+
+" Misc
+Plug 'iamcco/markdown-preview.nvim', { 'do': { -> mkdp#util#install() }, 'for': ['markdown', 'vim-plug']}
+" --------------------------------
+"
 call plug#end()
 " --------------------------------------------------------------------------------------------------------------------------------------------------------
 " |Custom Hotkeys|
@@ -85,7 +102,6 @@ vnoremap <S-Tab> <
 " --------------------------------------------------------------------------------------------------------------------------------------------------------
 " |Setters & Vim configuration|
 " --------------------------------------------------------------------------------------------------------------------------------------------------------
-set clipboard+=unnamedplus
 " use 4 spaces instead of tabs during formatting
 set expandtab
 set noshowmode "get rid of built-in mode text because of lightline
@@ -162,6 +178,7 @@ augroup END
 
 " <gruvbox> - tema pulento
 colorscheme gruvbox
+let g:gruvbox_contrast_dark = 'hard'
 set background=dark
 
 " --------------------------------------------------------------------------------------------------------------------------------------------------------
@@ -340,3 +357,11 @@ command! -bang ProjectFiles call fzf#vim#files('~/Source', {'options':['--layout
 " <vim-hexokinase>
 let g:Hexokinase_highlighters = ['backgroundfull']
 set termguicolors
+
+" <vim-markdown>
+set conceallevel=2
+let g:vim_markdown_math = 1
+let g:vim_markdown_frontmatter = 1
+let g:vim_markdown_toml_frontmatter = 1
+let g:vim_markdown_json_frontmatter = 1
+let g:vim_markdown_strikethrough = 1
