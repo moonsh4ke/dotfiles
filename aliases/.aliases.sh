@@ -71,7 +71,7 @@ alias jn-b="jupyter notebook --no-browser"
 alias python='python3'
 
 # vim
-alias v='nvim'
+alias nv='nvim'
 
 # fzf
 alias ve='vim -o `fzf`'
