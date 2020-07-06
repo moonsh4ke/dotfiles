@@ -1,7 +1,7 @@
 # quick access
 alias aliases='nvim ~/.aliases.sh'
 alias acfg='nvim ~/dotfiles/terminal/.alacritty.yml'
-alias vcfg='nvim ~/.config/nvim/init.vim'
+alias nvcfg='nvim ~/.config/nvim/init.vim'
 alias zcfg='nvim ~/.zshrc'
 alias tcfg='nvim ~/.tmux.conf'
 # refresh config
@@ -74,7 +74,7 @@ alias python='python3'
 alias nv='nvim'
 
 # fzf
-alias ve='vim -o `fzf`'
+alias nve='nvim -o `fzf`'
 
 #
 # Misc
