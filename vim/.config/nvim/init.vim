@@ -8,71 +8,73 @@ set nocompatible "enable vim functionality
 call plug#begin()
 
 " GUI
-Plug 'machakann/vim-highlightedyank'
-Plug 'morhetz/gruvbox' " colortheme
-Plug 'itchyny/lightline.vim' "configurable statusline
-Plug 'mhinz/vim-startify' " start screen
-" Git GUI
-"Plug 'airblade/vim-gitgutter'
-Plug 'tpope/vim-fugitive'             " Git interface
-"Plug 'airblade/vim-gitgutter'
-"Plug 'xuyuanp/nerdtree-git-plugin'    " Show status of files in NerdTree
+Plug 'morhetz/gruvbox' " Colortheme
+Plug 'itchyny/lightline.vim' " Configurable statusline
+Plug 'mhinz/vim-startify' " Start screen
+    " Git GUI
+Plug 'tpope/vim-fugitive' " Git interface
+Plug 'airblade/vim-gitgutter' " Asynchronous git diff
+Plug 'xuyuanp/nerdtree-git-plugin' " Show status of files in NerdTree
 " --------------------------------
 
 " LSP, linting
-Plug 'neoclide/coc.nvim', {'branch': 'release'}
-Plug 'dense-analysis/ale' "linting engine
-Plug 'maximbaz/lightline-ale' " linter status bar
+Plug 'neoclide/coc.nvim', {'branch': 'release'} " LSP support 
+Plug 'dense-analysis/ale' " Linting engine
+Plug 'maximbaz/lightline-ale' " Linter status bar
 " --------------------------------
 
 " File management 
-Plug 'junegunn/fzf', { 'do': { -> fzf#install() } } "File finder
+Plug 'junegunn/fzf', { 'do': { -> fzf#install() } } " Fuzzy file finder
 Plug 'junegunn/fzf.vim'
 Plug 'preservim/nerdtree' "File explorer
-Plug 'tpope/vim-eunuch' "unix shell commands in vim command-line
+Plug 'tpope/vim-eunuch' " Unix shell commands in vim command-line
 " --------------------------------
 
 " Syntax highlight
-Plug 'luochen1990/rainbow'             " Rainbow parentheses
-Plug 'wlangstroth/vim-racket'   "racket support
-Plug 'vim-python/python-syntax' "python
-Plug 'rrethy/vim-hexokinase', { 'do': 'make hexokinase' } "color support (needs golang)
+Plug 'luochen1990/rainbow' " Rainbow parentheses
+Plug 'wlangstroth/vim-racket' " Racket support
+Plug 'vim-python/python-syntax' " Python
+Plug 'rrethy/vim-hexokinase', { 'do': 'make hexokinase' } " Color support (needs golang)
 Plug 'https://github.com/plasticboy/vim-markdown'
-" ciaranm/securemodelines " format c family language
-" Movement
-Plug 'easymotion/vim-easymotion'
+" ciaranm/securemodelines " Format c family language
 " --------------------------------
 
 " Text manipulation
+Plug 'https://github.com/tpope/vim-surround' " Easy management for sorroundings
+Plug 'machakann/vim-highlightedyank'
 Plug 'romainl/vim-cool' " Disables highlight when search is done
 Plug 'Yggdroot/indentLine' "Display the identation levelvs with thin vertical lines
 Plug 'tpope/vim-commentary' " Comment stuff out
-" Running Code
-Plug 'skywind3000/asyncrun.vim'
+Plug 'easymotion/vim-easymotion' " Fastest motion management
 " --------------------------------
 
 " Tmux
 Plug 'tmux-plugins/vim-tmux' " syntax hl, commentary, documentation, :make
-Plug 'https://github.com/christoomey/vim-tmux-navigator' " vim movement in tmux
+Plug 'https://github.com/christoomey/vim-tmux-navigator' " vim window movement integration in tmux
 " Plug 'https://github.com/roxma/vim-tmux-clipboard' " tmux cpy mode to unnamed registry
 " --------------------------------
 
 " Misc
 Plug 'iamcco/markdown-preview.nvim', { 'do': { -> mkdp#util#install() }, 'for': ['markdown', 'vim-plug']}
 " --------------------------------
-"
+
 call plug#end()
 " --------------------------------------------------------------------------------------------------------------------------------------------------------
 " |Custom Hotkeys|
 " --------------------------------------------------------------------------------------------------------------------------------------------------------
 " Unbind for tmux
-map <C-a> <Nop> 
+" map <C-a> <Nop> 
 
 " quicker window movement
 nnoremap <M-j> <C-w>j
 nnoremap <M-h> <C-w>h
 nnoremap <M-k> <C-w>k
 nnoremap <M-l> <C-w>l
+
+" better maping for ctrl-u and ctrl-d
+map <M-u> <C-u>
+map <M-d> <C-d>
+
 
 " Move by line
 nnoremap j gj
@@ -140,6 +142,10 @@ set mouse+=a " Enable mouse support
 "set nowrap "if the line is longest than windows hide the line
 set noswapfile "dont create swap files
 set guioptions-=T " Remove toolbar
+
+" Maintain undo history between sessions
+set undofile 
+set undodir=~/.vim/undodir
 
 " --------------------------------------------------------------------------------------------------------------------------------------------------------
 " |Leader Shorcuts|
@@ -224,10 +230,24 @@ set cmdheight=2
 " Having longer updatetime (default is 4000 ms = 4 s) leads to noticeable
 " delays and poor user experience.
 set updatetime=300
+" Some servers have issues with backup files, see #649.
+set nobackup
+set nowritebackup
 " Don't pass messages to |ins-completion-menu|.
 set shortmess+=c
+
+" Always show the signcolumn, otherwise it would shift the text each time
+" diagnostics appear/become resolved.
+if has("patch-8.1.1564")
+  " Recently vim can merge signcolumn and number column into one
+  set signcolumn=number
+else
+  set signcolumn=yes
+endif
+
 " Use K to show documentation in preview window.
 nnoremap <silent> K :call <SID>show_documentation()<CR>
+
 
 function! s:show_documentation()
   if (index(['vim','help'], &filetype) >= 0)
