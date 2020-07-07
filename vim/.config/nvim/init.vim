@@ -145,7 +145,7 @@ set guioptions-=T " Remove toolbar
 
 " Maintain undo history between sessions
 set undofile 
-set undodir=~/.vim/undodir
+set undodir=~/.config/nvim/undodir
 
 " --------------------------------------------------------------------------------------------------------------------------------------------------------
 " |Leader Shorcuts|
