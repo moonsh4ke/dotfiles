@@ -4,6 +4,7 @@ alias acfg='nvim ~/dotfiles/terminal/.alacritty.yml'
 alias nvcfg='nvim ~/.config/nvim/init.vim'
 alias zcfg='nvim ~/.zshrc'
 alias tcfg='nvim ~/.tmux.conf'
+alias nv='nvim'
 # refresh config
 alias rf='source ~/.zshrc'
 alias td='nvim ~/Documents/notes/todo.txt'
@@ -69,9 +70,6 @@ alias jn-b="jupyter notebook --no-browser"
 
 # python
 alias python='python3'
-
-# vim
-alias nv='nvim'
 
 # fzf
 alias nve='nvim -o `fzf`'
