@@ -147,6 +147,8 @@ set guioptions-=T " Remove toolbar
 set undofile 
 set undodir=~/.config/nvim/undodir
 
+set scrolloff=12        " Keep cursor in approximately the middle of the screen
+
 " --------------------------------------------------------------------------------------------------------------------------------------------------------
 " |Leader Shorcuts|
 " --------------------------------------------------------------------------------------------------------------------------------------------------------
@@ -155,6 +157,7 @@ let mapleader=" "       " leader is space
 
 " Quick run
 map <leader>r :AsyncRun -raw python3 % <CR>
+
 
 " Quick quit
 nmap <Leader>q :q<CR>
