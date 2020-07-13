@@ -1,4 +1,5 @@
 export PATH=$HOME/bin:/usr/local/bin:$PATH
+export PYTHONSTARTUP=~/.pythonrc
 
 # Path to your oh-my-zsh installation.
 export ZSH="/home/moon/.oh-my-zsh"
@@ -19,15 +20,20 @@ plugins=(
     fasd
     zsh-autosuggestions
     zsh-syntax-highlighting
+    colored-man-pages
     # zsh-completions
  )
-
+# fpath=($ZSH/custom/plugins/zsh-completions/src $fpath)
 source $ZSH/oh-my-zsh.sh
 
 # User configuration
 
 # zsh-completion setting
 # autoload -U compinit && compinit
+
+# commmand not found (ubuntu)
+#https://github.com/ohmyzsh/ohmyzsh/blob/master/plugins/command-not-found/command-not-found.plugin.zsh
+[[ -e /etc/zsh_command_not_found ]] && source /etc/zsh_command_not_found
 
 eval "$(fasd --init auto)"
 
@@ -63,6 +69,7 @@ bindkey -M menuselect 'j' vi-down-line-or-history
 # Use vim style line editing in zsh
 bindkey -v
 
+
 # Aliases
 source ~/.aliases.sh
 
@@ -75,3 +82,20 @@ ZSH_THEME_GIT_PROMPT_PREFIX="%{$fg_bold[blue]%}git:(%{$fg[red]%}"
 ZSH_THEME_GIT_PROMPT_SUFFIX="%{$reset_color%} "
 ZSH_THEME_GIT_PROMPT_DIRTY="%{$fg[blue]%}) %{$fg[yellow]%}✗"
 ZSH_THEME_GIT_PROMPT_CLEAN="%{$fg[blue]%})"
+
+oldPS1="$PS1"
+
+function zle-line-init zle-keymap-select {
+
+    VIM_NORMAL_PROMPT="%{$fg_bold[green]%}% N% %{$reset_color%}"
+    VIM_INSERT_PROMPT="%{$fg_bold[blue]%}% I% %{$reset_color%}"
+    PS1="$oldPS1${${KEYMAP/vicmd/$VIM_NORMAL_PROMPT}/(main|viins)/$VIM_INSERT_PROMPT} "
+    PS2=$PS1
+    RPS1=""
+    RPS2=""
+    zle reset-prompt
+}
+
+zle -N zle-line-init
+
+zle -N zle-keymap-select
