@@ -1,10 +1,7 @@
-" set runtimepath^=~/.vim runtimepath+=~/.vim/after
-" let &packpath = &runtimepath
-"
 set nocompatible "enable vim functionality
-" --------------------------------------------------------------------------------------------------------------------------------------------------------
+" --------------------------------
 " |Plugins|
-" --------------------------------------------------------------------------------------------------------------------------------------------------------
+" --------------------------------
 call plug#begin()
 
 " GUI
@@ -56,12 +53,14 @@ Plug 'https://github.com/christoomey/vim-tmux-navigator' " vim window movement i
 
 " Misc
 Plug 'iamcco/markdown-preview.nvim', { 'do': { -> mkdp#util#install() }, 'for': ['markdown', 'vim-plug']}
+Plug 'simnalamburt/vim-mundo'         " Gundo fork
 " --------------------------------
 
+
 call plug#end()
-" --------------------------------------------------------------------------------------------------------------------------------------------------------
+" --------------------------------
 " |Custom Hotkeys|
-" --------------------------------------------------------------------------------------------------------------------------------------------------------
+" --------------------------------
 " Unbind for tmux
 " map <C-a> <Nop> 
 
@@ -101,21 +100,26 @@ nnoremap <C-i> <C-i>zz
 vnoremap <Tab> >
 vnoremap <S-Tab> <
 
-" --------------------------------------------------------------------------------------------------------------------------------------------------------
+" --------------------------------
 " |Setters & Vim configuration|
-" --------------------------------------------------------------------------------------------------------------------------------------------------------
+" --------------------------------
+syntax on
 " use 4 spaces instead of tabs during formatting
 set expandtab
 set noshowmode "get rid of built-in mode text because of lightline
 set tabstop=4
 set shiftwidth=4
-set hlsearch
 set softtabstop=4
+
+set hlsearch
 set timeout timeoutlen=1000 ttimeoutlen=100 " fix slow O inserts
-syntax on
 set guifont=Monospace\ 12 " Toy ciego
 set shortmess+=I " Disable the default Vim startup message.
+
+" Command mode completion
 set wildmenu            " visual autocomplete for command menu
+set wildignore=*.png,*.jpg,*.gif " Extensions to ignore
+
 set showmatch           " highlight matching [{()}]
 filetype indent on      " load filetype-specific indent files
 filetype plugin on      " load filetype specific plugin files
@@ -149,9 +153,9 @@ set undodir=~/.config/nvim/undodir
 
 set scrolloff=12        " Keep cursor in approximately the middle of the screen
 
-" --------------------------------------------------------------------------------------------------------------------------------------------------------
+" --------------------------------
 " |Leader Shorcuts|
-" --------------------------------------------------------------------------------------------------------------------------------------------------------
+" --------------------------------
 
 let mapleader=" "       " leader is space
 
@@ -183,21 +187,31 @@ augroup CursorLineOnlyInActiveWindow
     autocmd WinLeave * setlocal nocursorline
 augroup END
 
-" --------------------------------------------------------------------------------------------------------------------------------------------------------
+" --------------------------------
 
 " <gruvbox> - tema pulento
-colorscheme gruvbox
 let g:gruvbox_contrast_dark = 'hard'
+
+if exists('+termguicolors')
+  let &t_8f="\<Esc>[38;2;%lu;%lu;%lum"
+  let &t_8b="\<Esc>[48;2;%lu;%lu;%lum"
+  set termguicolors
+endif
+
+let g:gruvbox_invert_selection='0'
+colorscheme gruvbox
 set background=dark
 
-" --------------------------------------------------------------------------------------------------------------------------------------------------------
+highlight Normal ctermfg=none ctermbg=none guifg=none guibg=none
+
+" --------------------------------
 
 " <nerdtree>
 nnoremap <Leader>n :NERDTreeToggle<CR>
 nnoremap <Leader>f :NERDTreeFind<CR>
 " Close vim if only window left is NERDTree
 autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif
-" --------------------------------------------------------------------------------------------------------------------------------------------------------
+" --------------------------------
 
 " <easymotion>
 map <Leader> <Plug>(easymotion-prefix)
@@ -207,24 +221,24 @@ let g:EasyMotion_keys = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ;'
 " JK motions: Line motions
 map <Leader>t <Plug>(easymotion-t2)
 
-" --------------------------------------------------------------------------------------------------------------------------------------------------------
+" --------------------------------
 
 " <rainbow parentheses>
 let g:rainbow_active = 1
 
-" --------------------------------------------------------------------------------------------------------------------------------------------------------
+" --------------------------------
 
 " <ALE>
 let b:ale_linters = ["clangd"]
 map <leader>at :ALEToggle<CR>
 let g:ale_enabled = 0
 
-" --------------------------------------------------------------------------------------------------------------------------------------------------------
+" --------------------------------
 
 " <vim-cool>
 let g:CoolTotalMatches = 1
 
-" --------------------------------------------------------------------------------------------------------------------------------------------------------
+" --------------------------------
 
 " <coc>
 
@@ -280,6 +294,23 @@ inoremap <silent><expr> <c-space> coc#refresh()
 " Formatting selected code.
 xmap <leader>f  <Plug>(coc-format-selected)
 nmap <leader>f  <Plug>(coc-format-selected)
+
+augroup mygroup
+  autocmd!
+  " Setup formatexpr specified filetype(s).
+  autocmd FileType typescript,json setl formatexpr=CocAction('formatSelected')
+  " Update signature help on jump placeholder.
+  autocmd User CocJumpPlaceholder call CocActionAsync('showSignatureHelp')
+augroup end
+
+" Add `:Format` command to format current buffer.
+command! -nargs=0 Format :call CocAction('format')
+
+" Add `:Fold` command to fold current buffer.
+command! -nargs=? Fold :call     CocAction('fold', <f-args>)
+
+" Add `:OR` command for organize imports of the current buffer.
+command! -nargs=0 OR   :call     CocAction('runCommand', 'editor.action.organizeImport')
 
 " Symbol renaming.
 nmap <leader>rn <Plug>(coc-rename)
@@ -351,7 +382,7 @@ let g:lightline.component_type = {
       \     'linter_ok': 'right',
       \ }
 
-" --------------------------------------------------------------------------------------------------------------------------------------------------------
+" --------------------------------
 
 " <fzf>
 nmap <Leader>, :Buffers<CR>
@@ -376,7 +407,46 @@ command! -bang -nargs=? -complete=dir Files call fzf#vim#files(<q-args>,{'option
 command! -bang ProjectFiles call fzf#vim#files('~/Source', {'options':['--layout=reverse', '--info=inline', '--preview', 'cat {}']}, <bang>0)
 " Projectfile preview on, sh on (kinda laggy)
 "command! -bang ProjectFiles call fzf#vim#files('~/Source', {'options': ['--layout=reverse', '--info=inline', '--preview', '~/.vim/plugged/fzf.vim/bin/preview.sh {}']}, <bang>0)
-" --------------------------------------------------------------------------------------------------------------------------------------------------------
+
+
+"" FZF Floating Window (NVIM only)
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+""Let the input go up and the search list go down
+"let $FZF_DEFAULT_OPTS = '--layout=reverse'
+
+""Open FZF and choose floating window
+"let g:fzf_layout = { 'window': 'call OpenFloatingWin()' }
+
+"function! OpenFloatingWin()
+"  let height = &lines - 3
+"  let width = float2nr(&columns - (&columns * 2 / 10))
+"  let col = float2nr((&columns - width) / 2)
+
+"  "Set the position, size, etc. of the floating window.
+"  "The size configuration here may not be so flexible, and there's room for further improvement.
+"  let opts = {
+"        \ 'relative': 'editor',
+"        \ 'row': height * 0.3,
+"        \ 'col': col + 30,
+"        \ 'width': width * 2 / 3,
+"        \ 'height': height / 2
+"        \ }
+
+"  let buf = nvim_create_buf(v:false, v:true)
+"  let win = nvim_open_win(buf, v:true, opts)
+
+"  "Set Floating Window Highlighting
+"  call setwinvar(win, '&winhl', 'Normal:Pmenu')
+
+"  setlocal
+"        \ buftype=nofile
+"        \ nobuflisted
+"        \ bufhidden=hide
+"        \ nonumber
+"        \ norelativenumber
+"        \ signcolumn=no
+"endfunction
+" --------------------------------
 " <vim-hexokinase>
 let g:Hexokinase_highlighters = ['backgroundfull']
 set termguicolors
@@ -388,3 +458,6 @@ let g:vim_markdown_frontmatter = 1
 let g:vim_markdown_toml_frontmatter = 1
 let g:vim_markdown_json_frontmatter = 1
 let g:vim_markdown_strikethrough = 1
+
+" <Mundo-tree>
+nnoremap <F5> :MundoToggle<CR>
