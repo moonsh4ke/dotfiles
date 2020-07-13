@@ -5,10 +5,13 @@ alias nvcfg='nvim ~/.config/nvim/init.vim'
 alias zcfg='nvim ~/.zshrc'
 alias tcfg='nvim ~/.tmux.conf'
 alias nv='nvim'
+alias e='nvim'
 # refresh config
 alias rf='source ~/.zshrc'
 alias td='nvim ~/Documents/notes/todo.txt'
 alias shistory='nvim ~/.shistory.sh' 
+# local folders
+alias horario='xdg-open ~/Pictures/HorarioPulentoso.jpg'
 
 # Enable aliases to be sudo’ed
 alias sudo='sudo '
@@ -16,6 +19,7 @@ alias sudo='sudo '
 # package manager aliases
 alias apti='sudo apt install'
 alias aptr='sudo apt remove'
+alias apts='sudo apt search'
 alias snapi='sudo snap install'
 alias snapr='sudo snap remove'
 
@@ -30,6 +34,10 @@ alias -- -="cd -"
 alias dl="cd ~/Downloads"
 alias dt="cd ~/Desktop"
 alias p="cd ~/projects"
+# Create a directory and cd into it
+mcd() {
+    mkdir "${1}" && cd "${1}"
+}
 
 # ls aliases
 alias ll='ls -lah'
@@ -45,6 +53,7 @@ alias mv='mv -iv'
 alias rm='rm -Iv'
 
 alias mkd='mkdir -pv'
+alias o='xdg-open'
 alias open='xdg-open'
 
 # processes
@@ -61,6 +70,7 @@ alias gd='git diff'
 alias gD='git ls-files'
   # Note that gs is also ghostscript
 alias ghostscript="/usr/local/bin/gs"
+alias cdgr='cd "$(git root)"'
 
 ## Jupyter
 # alias jc="jupyter console"
