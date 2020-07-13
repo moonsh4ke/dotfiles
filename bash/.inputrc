@@ -1,3 +1,2 @@
-# enable vi mode in shell
-# set editing-mode vi
-# set keymap vi-command
+set editing-mode vi
+set keymap vi-command
