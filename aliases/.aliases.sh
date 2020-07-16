@@ -47,7 +47,7 @@ alias l='ls'
 # chmod
 alias chmx='chmod +x'
 
-# file modifiers
+# file management, modifiers, etc.
 alias cp='cp -iv'
 alias mv='mv -iv'
 alias rm='rm -Iv'
@@ -55,6 +55,9 @@ alias rm='rm -Iv'
 alias mkd='mkdir -pv'
 alias o='xdg-open'
 alias open='xdg-open'
+
+alias df='df -h'
+alias du='du -h'
 
 # processes
 alias ka='killall'
@@ -84,6 +87,9 @@ alias python='python3'
 # fzf
 alias nve='nvim -o `fzf`'
 
+# tmuxinator
+alias mux='tmuxinator'
+
 #
 # Misc
 #
@@ -96,3 +102,4 @@ alias speedtest="curl -s https://raw.githubusercontent.com/sivel/speedtest-cli/m
 alias timer='echo "Timer started. Stop with Ctrl-D." && date && time cat && date'
 
 alias q='exit'
+
