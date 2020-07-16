@@ -51,9 +51,14 @@ Plug 'https://github.com/christoomey/vim-tmux-navigator' " vim window movement i
 " Plug 'https://github.com/roxma/vim-tmux-clipboard' " tmux cpy mode to unnamed registry
 " --------------------------------
 
+" SQL env
+Plug 'https://github.com/tpope/vim-dadbod' " Data base support
+Plug 'https://github.com/kristijanhusak/vim-dadbod-ui' " UI for dadbod
+
 " Misc
 Plug 'iamcco/markdown-preview.nvim', { 'do': { -> mkdp#util#install() }, 'for': ['markdown', 'vim-plug']}
 Plug 'simnalamburt/vim-mundo'         " Gundo fork
+Plug 'tpope/vim-obsession' " Session management
 " --------------------------------
 
 
@@ -106,11 +111,11 @@ vnoremap <S-Tab> <
 syntax on
 " use 4 spaces instead of tabs during formatting
 set expandtab
-set noshowmode "get rid of built-in mode text because of lightline
 set tabstop=4
 set shiftwidth=4
 set softtabstop=4
 
+set noshowmode "get rid of built-in mode text because of lightline
 set hlsearch
 set timeout timeoutlen=1000 ttimeoutlen=100 " fix slow O inserts
 set guifont=Monospace\ 12 " Toy ciego
@@ -121,17 +126,21 @@ set wildmenu            " visual autocomplete for command menu
 set wildignore=*.png,*.jpg,*.gif " Extensions to ignore
 
 set showmatch           " highlight matching [{()}]
-filetype indent on      " load filetype-specific indent files
-filetype plugin on      " load filetype specific plugin files
+" filetype indent on      " load filetype-specific indent files
+" filetype plugin on      " load filetype specific plugin files
 set number " Show line numbers.
 set relativenumber " Show relative line numbering
 set laststatus=2 " Always show the status line at the bottom, even if you only have one window open.
 set backspace=indent,eol,start "allow backspacing over everything
 set hidden " allow hide unsaved buffers
 
-" open new split panes to right and bottom, which feels more natural
+" Open new split panes to right and bottom, which feels more natural
 set splitbelow
 set splitright
+
+" Continue comments when pressing ENTER in I mode
+" Dont continue comment after o and O
+autocmd FileType * setlocal formatoptions+=r formatoptions-=o
 
 " Searching
 " This setting makes search case-insensitive when all characters in the string
@@ -461,3 +470,36 @@ let g:vim_markdown_strikethrough = 1
 
 " <Mundo-tree>
 nnoremap <F5> :MundoToggle<CR>
+
+" <Startify>
+let g:startify_session_dir = '~/sessions'
+let g:startify_files_number = 5
+
+" What is show
+let g:startify_lists = [
+        \ { 'type': 'files',     'header': ['   MRU']            },
+        \ { 'type': 'dir',       'header': ['   MRU '. getcwd()] },
+        \ { 'type': 'sessions',  'header': ['   Sessions']       },
+        \ ]
+
+" Run startify on new tabs
+if has('nvim')
+  autocmd TabNewEntered * Startify
+else
+  autocmd BufWinEnter *
+        \ if !exists('t:startify_new_tab')
+        \     && empty(expand('%'))
+        \     && empty(&l:buftype)
+        \     && &l:modifiable |
+        \   let t:startify_new_tab = 1 |
+        \   Startify |
+        \ endif
+endif
+
+" <dadbod>
+vmap <Leader>D :DB<CR>
+" DB g:db = mysql://root@localhost/giraffe/
+
+" let g:dbs = {
+" \  'comp': 'mysql://root@localhost/giraffe'
+" \ }
