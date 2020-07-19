@@ -8,6 +8,7 @@ call plug#begin()
 Plug 'morhetz/gruvbox' " Colortheme
 Plug 'itchyny/lightline.vim' " Configurable statusline
 Plug 'mhinz/vim-startify' " Start screen
+Plug 'https://github.com/kshenoy/vim-signature' " Show marks in the side bar
     " Git GUI
 Plug 'tpope/vim-fugitive' " Git interface
 Plug 'airblade/vim-gitgutter' " Asynchronous git diff
@@ -43,6 +44,7 @@ Plug 'romainl/vim-cool' " Disables highlight when search is done
 Plug 'Yggdroot/indentLine' "Display the identation levelvs with thin vertical lines
 Plug 'tpope/vim-commentary' " Comment stuff out
 Plug 'easymotion/vim-easymotion' " Fastest motion management
+" Plug 'osyo-manga/vim-over' " Search and replace enhancement
 " --------------------------------
 
 " Tmux
@@ -59,6 +61,8 @@ Plug 'https://github.com/kristijanhusak/vim-dadbod-ui' " UI for dadbod
 Plug 'iamcco/markdown-preview.nvim', { 'do': { -> mkdp#util#install() }, 'for': ['markdown', 'vim-plug']}
 Plug 'simnalamburt/vim-mundo'         " Gundo fork
 Plug 'tpope/vim-obsession' " Session management
+" Plug 'https://github.com/tpope/vim-rsi' " Command lines readline
+" Plug 'https://github.com/jeetsukumaran/vim-buffergator' " Buffer enhancement
 " --------------------------------
 
 
@@ -333,11 +337,11 @@ nmap <silent> gr <Plug>(coc-references)
 " Use <cr> to confirm completion, `<C-g>u` means break undo chain at current
 " position. Coc only does snippet and additional edit on confirm.
 " <cr> could be remapped by other vim plugin, try `:verbose imap <CR>`.
-if exists('*complete_info')
-  inoremap <expr> <cr> complete_info()["selected"] != "-1" ? "\<C-y>" : "\<C-g>u\<CR>"
-else
-  inoremap <expr> <cr> pumvisible() ? "\<C-y>" : "\<C-g>u\<CR>"
-endif
+" if exists('*complete_info')
+"   inoremap <expr> <cr> complete_info()["selected"] != "-1" ? "\<C-y>" : "\<C-g>u\<CR>"
+" else
+"   inoremap <expr> <cr> pumvisible() ? "\<C-y>" : "\<C-g>u\<CR>"
+" endif
 
 " Highlight the symbol and its references when holding the cursor.
 autocmd CursorHold * silent call CocActionAsync('highlight')
@@ -469,7 +473,7 @@ let g:vim_markdown_json_frontmatter = 1
 let g:vim_markdown_strikethrough = 1
 
 " <Mundo-tree>
-nnoremap <F5> :MundoToggle<CR>
+nnoremap <leader>u :MundoToggle<CR>
 
 " <Startify>
 let g:startify_session_dir = '~/sessions'
@@ -503,3 +507,7 @@ vmap <Leader>D :DB<CR>
 " let g:dbs = {
 " \  'comp': 'mysql://root@localhost/giraffe'
 " \ }
+
+" <vim-signature>
+nnoremap <leader>m :SignatureToggle<CR>
+let g:SignatureEnabledAtStartup=0
