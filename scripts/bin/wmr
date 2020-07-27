@@ -1,0 +1,8 @@
+#!/bin/bash
+
+# Stylus mappings
+xsetwacom -v set "Wacom Intuos S Pen stylus" Button 3 "key ctrl y"
+xsetwacom -v set "Wacom Intuos S Pen stylus" Button 2 "key ctrl z"
+
+# Pad mappings
+xsetwacom -v set "Wacom Intuos S Pad pad" Button 8 "key del" # a.k.a Button 4 (visualy)
