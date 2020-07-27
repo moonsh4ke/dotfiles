@@ -22,9 +22,9 @@ Plug 'maximbaz/lightline-ale' " Linter status bar
 " --------------------------------
 
 " File management 
-Plug 'junegunn/fzf', { 'do': { -> fzf#install() } } " Fuzzy file finder
-Plug 'junegunn/fzf.vim'
-Plug 'preservim/nerdtree' "File explorer
+Plug '$HOME/.fzf'
+Plug 'preservim/nerdtree' " File explorer
+Plug 'junegunn/fzf.vim' " Fuzzy search for files
 Plug 'tpope/vim-eunuch' " Unix shell commands in vim command-line
 " --------------------------------
 
@@ -40,11 +40,15 @@ Plug 'https://github.com/plasticboy/vim-markdown'
 " Text manipulation
 Plug 'https://github.com/tpope/vim-surround' " Easy management for sorroundings
 Plug 'machakann/vim-highlightedyank'
-Plug 'romainl/vim-cool' " Disables highlight when search is done
 Plug 'Yggdroot/indentLine' "Display the identation levelvs with thin vertical lines
 Plug 'tpope/vim-commentary' " Comment stuff out
+
 Plug 'easymotion/vim-easymotion' " Fastest motion management
-" Plug 'osyo-manga/vim-over' " Search and replace enhancement
+Plug 'https://github.com/haya14busa/incsearch.vim' " Enhancement for incsearch a.k.a '/'
+Plug 'https://github.com/haya14busa/incsearch-easymotion.vim'
+
+Plug 'https://github.com/godlygeek/tabular' " Text aligment
+" Plug 'https://github.com/raimondi/delimitmate' " Automatic (), {}
 " --------------------------------
 
 " Tmux
@@ -55,34 +59,34 @@ Plug 'https://github.com/christoomey/vim-tmux-navigator' " vim window movement i
 
 " SQL env
 Plug 'https://github.com/tpope/vim-dadbod' " Data base support
-Plug 'https://github.com/kristijanhusak/vim-dadbod-ui' " UI for dadbod
+" Plug 'https://github.com/kristijanhusak/vim-dadbod-ui' " UI for dadbod
 
 " Misc
 Plug 'iamcco/markdown-preview.nvim', { 'do': { -> mkdp#util#install() }, 'for': ['markdown', 'vim-plug']}
 Plug 'simnalamburt/vim-mundo'         " Gundo fork
 Plug 'tpope/vim-obsession' " Session management
+Plug 'liuchengxu/vim-which-key' " Pop-up to manage keybindings
+Plug 'ryanoasis/vim-devicons/' " Better icons suport for GUI
 " Plug 'https://github.com/tpope/vim-rsi' " Command lines readline
-" Plug 'https://github.com/jeetsukumaran/vim-buffergator' " Buffer enhancement
 " --------------------------------
 
-
 call plug#end()
+
 " --------------------------------
 " |Custom Hotkeys|
 " --------------------------------
 " Unbind for tmux
 " map <C-a> <Nop> 
 
+" Jump to start and end of line using the home row keys
+map H ^
+map L $
+
 " quicker window movement
-nnoremap <M-j> <C-w>j
-nnoremap <M-h> <C-w>h
-nnoremap <M-k> <C-w>k
-nnoremap <M-l> <C-w>l
-
-" better maping for ctrl-u and ctrl-d
-map <M-u> <C-u>
-map <M-d> <C-d>
-
+nnoremap <C-j> <C-w>j
+nnoremap <C-h> <C-w>h
+nnoremap <C-k> <C-w>k
+nnoremap <C-l> <C-w>l
 
 " Move by line
 nnoremap j gj
@@ -93,9 +97,7 @@ nnoremap } ]
 nnoremap ° ^
 
 " more intuitive enter behavior (add line without entering in insert mode)
-
 nmap <CR> o<Esc>
-
 " Search results centered please
 nnoremap <silent> n nzz
 nnoremap <silent> N Nzz
@@ -112,7 +114,9 @@ vnoremap <S-Tab> <
 " --------------------------------
 " |Setters & Vim configuration|
 " --------------------------------
+
 syntax on
+set inccommand=nosplit " Live preview of substituion
 " use 4 spaces instead of tabs during formatting
 set expandtab
 set tabstop=4
@@ -122,7 +126,6 @@ set softtabstop=4
 set noshowmode "get rid of built-in mode text because of lightline
 set hlsearch
 set timeout timeoutlen=1000 ttimeoutlen=100 " fix slow O inserts
-set guifont=Monospace\ 12 " Toy ciego
 set shortmess+=I " Disable the default Vim startup message.
 
 " Command mode completion
@@ -172,10 +175,6 @@ set scrolloff=12        " Keep cursor in approximately the middle of the screen
 
 let mapleader=" "       " leader is space
 
-" Quick run
-map <leader>r :AsyncRun -raw python3 % <CR>
-
-
 " Quick quit
 nmap <Leader>q :q<CR>
 " todo: shotcut to w and wq
@@ -199,34 +198,75 @@ augroup CursorLineOnlyInActiveWindow
     autocmd VimEnter,WinEnter,BufWinEnter * setlocal cursorline
     autocmd WinLeave * setlocal nocursorline
 augroup END
-
 " --------------------------------
 
 " <gruvbox> - tema pulento
-let g:gruvbox_contrast_dark = 'hard'
 
+" Deal with term colors
 if exists('+termguicolors')
   let &t_8f="\<Esc>[38;2;%lu;%lu;%lum"
   let &t_8b="\<Esc>[48;2;%lu;%lu;%lum"
   set termguicolors
 endif
 
-let g:gruvbox_invert_selection='0'
+let g:gruvbox_sign_column='bg0' " Sign Column same color as background
+let g:gruvbox_contrast_dark = 'hard'
+let g:gruvbox_invert_selection='0' " Proper visual mode selection color
+let g:gruvbox_italic=1
 colorscheme gruvbox
 set background=dark
 
-highlight Normal ctermfg=none ctermbg=none guifg=none guibg=none
-
+" Set background to none so tmux can set active pane as darknest one and
+" inactive as lighter
+highlight Normal ctermbg=none guibg=none
 " --------------------------------
 
 " <nerdtree>
+
 nnoremap <Leader>n :NERDTreeToggle<CR>
-nnoremap <Leader>f :NERDTreeFind<CR>
+nnoremap <Leader>N :NERDTreeFind<CR>
 " Close vim if only window left is NERDTree
 autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif
+
+" Disable signcolumn for NERDTree
+autocmd FileType nerdtree setlocal signcolumn=no
+
+" Disables display of the 'Bookmarks' label and
+" 'Press ? for help' text.
+let NERDTreeMinimalUI=1
+
+" Display hidden files
+let NERDTreeShowHidden=1
+
+" Show line number in nerdtree
+let NERDTreeShowLineNumbers=1
+
+" Close tree after open a file
+let NERDTreeQuitOnOpen = 1
+
+" Automatically delete the buffer of the file you just deleted with NerdTree:
+let NERDTreeAutoDeleteBuffer = 1
+
+" Colors
+" TODO: update help menu colors
+
+" Files
+hi NerdTreeFile guifg=#458788
+hi NERDTreeExecFile guifg=#98971a
+hi NERDTreeLinkFile guifg=#d79921
+hi NERDTreeLinkTarget guifg=#d79921
+
+" Directories
+hi NERDTreeDirSlash guifg=#d65d0e
+hi NERDTreeDir guifg=#a89984
+hi NERDTreeOpenable guifg=#a89984
+hi NERDTreeClosable guifg=#a89984
+hi NERDTreeFlags guifg=#a89984
+
 " --------------------------------
 
 " <easymotion>
+
 map <Leader> <Plug>(easymotion-prefix)
 " Use uppercase target labels and type as a lower case
 let g:EasyMotion_use_upper = 1
@@ -234,29 +274,43 @@ let g:EasyMotion_keys = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ;'
 " JK motions: Line motions
 map <Leader>t <Plug>(easymotion-t2)
 
+map <Leader>h <Plug>(easymotion-linebackward)
+map <Leader>j <Plug>(easymotion-j)
+map <Leader>k <Plug>(easymotion-k)
+map <Leader>l <Plug>(easymotion-lineforward)
+map <Leader>s <Plug>(easymotion-s)
+
 " --------------------------------
 
 " <rainbow parentheses>
-let g:rainbow_active = 1
 
+" Setup colors and exclude nertree because it cause conflict with devicons
+" with NERDTree
+let g:rainbow_conf = {
+  \    'guifgs': ['#d65d0e', '#d3869b', '#458588', '#d79921', '#8ec07c', '#cc241d'],
+  \    'separately': {
+  \       'nerdtree': 0
+  \    }
+  \}
+let g:rainbow_active = 1
 " --------------------------------
 
 " <ALE>
+
 let b:ale_linters = ["clangd"]
 map <leader>at :ALEToggle<CR>
 let g:ale_enabled = 0
-
 " --------------------------------
 
 " <vim-cool>
-let g:CoolTotalMatches = 1
 
+let g:CoolTotalMatches = 1
 " --------------------------------
 
 " <coc>
 
 "Give more space for displaying messages.
-set cmdheight=2
+set cmdheight=1
 " Having longer updatetime (default is 4000 ms = 4 s) leads to noticeable
 " delays and poor user experience.
 set updatetime=300
@@ -355,20 +409,36 @@ set statusline^=%{coc#status()}%{get(b:,'coc_current_function','')}
 autocmd User CocStatusChange,CocDiagnosticChange call lightline#update()
 
 " Lightline mods for CoC compatibility
+" Todo: Fix ale linter icons
 let g:lightline = {
+      \ 'colorscheme': 'gruvbox',
       \ 'active': {
       \   'left': [ [ 'mode', 'paste' ],
-      \             [ 'cocstatus', 'currentfunction', 'readonly', 'filename', 'modified', 'fugitive' ] ],
+      \             [ 'gitbranch', 'filename', 'readonly', 'cocstatus', 'currentfunction', 'modified' ] ],
       \   'right': [ [ 'lineinfo' ],
       \              [ 'percent' ],
-      \              [ 'linter_checking', 'linter_errors', 'linter_warnings', 'linter_infos', 'linter_ok', 'filetype', 'fileencoding'] ]
+      \              [ 'linter_checking', 'linter_errors', 'linter_warnings', 'linter_infos', 'linter_ok', 'wordcount' , 'filetype', 'fileencoding'] ]
       \ },
       \ 'component_function': {
       \   'filename': 'LightlineFilename',
       \   'cocstatus': 'coc#status',
-      \   'currentfunction': 'CocCurrentFunction'
+      \   'currentfunction': 'CocCurrentFunction',
+      \   'gitbranch': 'LightlineFugitive',
+      \   'readonly': 'LightlineReadonly',
+      \   'wordcount': 'WordCount'
       \ },
       \ }
+
+	function! LightlineReadonly()
+		return &readonly ? '' : ''
+	endfunction
+	function! LightlineFugitive()
+		if exists('*FugitiveHead')
+			let branch = FugitiveHead()
+			return branch !=# '' ? ''.branch : ''
+		endif
+		return ''
+	endfunction
 
 function! LightlineFilename()
   return expand('%:t') !=# '' ? @% : '[No Name]'
@@ -378,6 +448,11 @@ function! CocCurrentFunction()
     return get(b:, 'coc_current_function', '')
 endfunction
 
+let g:lightline#ale#indicator_checking = "\uf110"
+let g:lightline#ale#indicator_infos = "\uf129"
+let g:lightline#ale#indicator_warnings = "\uf071"
+let g:lightline#ale#indicator_errors = "\uf05e"
+let g:lightline#ale#indicator_ok = "\uf00c"
 
 let g:lightline.component_expand = {
       \  'linter_checking': 'lightline#ale#checking',
@@ -387,22 +462,24 @@ let g:lightline.component_expand = {
       \  'linter_ok': 'lightline#ale#ok',
       \ }
 
-let g:lightline.component_type = {
-      \     'linter_checking': 'right',
-      \     'linter_infos': 'right',
-      \     'linter_warnings': 'warning',
-      \     'linter_errors': 'error',
-      \     'linter_ok': 'right',
-      \ }
-
+" let g:lightline.component_type = {
+"       \     'linter_checking': 'right',
+"       \     'linter_infos': 'right',
+"       \     'linter_warnings': 'warning',
+"       \     'linter_errors': 'error',
+"       \     'linter_ok': 'right',
+"       \ }
 " --------------------------------
 
 " <fzf>
+
+nmap <leader>: :History:<CR>
+nmap <leader>/ :History/<CR>
 nmap <Leader>, :Buffers<CR>
-"nnoremap <Leader>og :Rg<CR>
 nnoremap <Leader>o :Files<CR>
 "nnoremap <Leader>os :ProjectFiles<CR>
-nnoremap <Leader>h :History<CR>
+nnoremap <Leader>H :History<CR>
+
 " Previews highlight off/ona (sh = syntax highlight)
 
 " :Files
@@ -422,9 +499,9 @@ command! -bang ProjectFiles call fzf#vim#files('~/Source', {'options':['--layout
 "command! -bang ProjectFiles call fzf#vim#files('~/Source', {'options': ['--layout=reverse', '--info=inline', '--preview', '~/.vim/plugged/fzf.vim/bin/preview.sh {}']}, <bang>0)
 
 
-"" FZF Floating Window (NVIM only)
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" Floating Window (NVIM only)
 "Let the input go up and the search list go down
+
 let $FZF_DEFAULT_OPTS = '--layout=reverse'
 
 "Open FZF and choose floating window
@@ -459,32 +536,99 @@ function! OpenFloatingWin()
         \ norelativenumber
         \ signcolumn=no
 endfunction
+
+" Todo: play with these settings
+let g:fzf_colors =
+\ { 'fg':      ['fg', 'Normal'],
+  \ 'bg':      ['bg', 'Normal'],
+  \ 'hl':      ['fg', 'Comment'],
+  \ 'fg+':     ['fg', 'CursorLine', 'CursorColumn', 'Normal'],
+  \ 'bg+':     ['bg', 'CursorLine', 'CursorColumn'],
+  \ 'hl+':     ['fg', 'Statement'],
+  \ 'info':    ['fg', 'PreProc'],
+  \ 'border':  ['fg', 'Ignore'],
+  \ 'prompt':  ['fg', 'Conditional'],
+  \ 'pointer': ['fg', 'Exception'],
+  \ 'marker':  ['fg', 'Keyword'],
+  \ 'spinner': ['fg', 'Label'],
+  \ 'header':  ['fg', 'Comment'] }
 " --------------------------------
+
 " <vim-hexokinase>
+
 let g:Hexokinase_highlighters = ['backgroundfull']
 set termguicolors
+" --------------------------------
 
 " <vim-markdown>
+
 set conceallevel=2
 let g:vim_markdown_math = 1
 let g:vim_markdown_frontmatter = 1
 let g:vim_markdown_toml_frontmatter = 1
 let g:vim_markdown_json_frontmatter = 1
 let g:vim_markdown_strikethrough = 1
+" --------------------------------
 
 " <Mundo-tree>
+
 nnoremap <leader>u :MundoToggle<CR>
+" --------------------------------
 
 " <Startify>
-let g:startify_session_dir = '~/sessions'
-let g:startify_files_number = 5
 
-" What is show
+nnoremap <leader>S :Startify<CR>
+let g:startify_session_dir = '~/sessions'
+let g:startify_change_to_dir = 1 " When opening a file or bookmark, change to its directory.
+let g:startify_files_number = 5 " Max. number of files to show
+
+" CAREFUL: Do not override Startify built-in mappings (e, i, q, b, s, v, t)
+
+" Custom
+let g:startify_bookmarks = [{'a': '~/.alacritty.yml'}, {'l': '~/.aliases.sh'}, {'n': '~/.config/nvim/init.vim'}, {'m': '~/.tmux.conf'}, {'z': '~/.zshrc' } ]
+
+" Commands
+let g:startify_commands = [
+    \ ':help reference',
+    \ ['Startify documentation', 'help startify'],
+    \ ]
+
+" Start indices from 1
+let g:startify_custom_indices = map(range(1,100), 'string(v:val)')
+
+highlight StartifyBracket guifg=#a89984
+highlight StartifyNumber guifg=#d79921
+" highlight StartifyFooter guifg=
+highlight StartifyHeader guifg=#458788
+highlight StartifyPath guifg=#a89984
+highlight StartifySlash guifg=#d65d0e
+highlight StartifyFile guifg=#458788
+highlight StartifySection guifg=#98971a
+" highlight StartifySelect guifg=
+highlight StartifySpecial guifg=#a89984
+" highlight StartifyVar guifg=
+
+let g:startify_custom_header = [                                                                                       
+      \'   __                 __                   __      __                   ',
+      \'  /\ \__             /\ \__               /\ \  __/\ \__                ',
+      \'  \ \ ,_\    __  __  \ \ ,_\         __   \_\ \/\_\ \ ,_\   ___   _ __  ',
+      \'   \ \ \/  /''__`/\ \/''\ \ \/       /''__`\ /''_` \/\ \ \ \/  / __`\/\`''__\',
+      \'    \ \ \_/\  __\/>  </\ \ \_     /\  __//\ \L\ \ \ \ \ \_/\ \L\ \ \ \/ ',
+      \'     \ \__\ \____/\_/\_\\ \__\    \ \____\ \___,_\ \_\ \__\ \____/\ \_\ ',
+      \'      \/__/\/____\//\/_/ \/__/     \/____/\/__,_ /\/_/\/__/\/___/  \/_/ '
+      \      ] 
+
+" Deal with the list that is going to be show by Startify
+
+
 let g:startify_lists = [
-        \ { 'type': 'files',     'header': ['   MRU']            },
-        \ { 'type': 'dir',       'header': ['   MRU '. getcwd()] },
         \ { 'type': 'sessions',  'header': ['   Sessions']       },
+        \ { 'type': 'bookmarks', 'header': ['   Bookmarks']      },
+        \ { 'type': 'files',     'header': ['   Recently Open']            },
+        \ { 'type': 'commands',  'header': ['   Commands']       },
         \ ]
+
+" \ { 'type': 'dir',       'header': ['   Current Directory '. getcwd()] },
 
 " Run startify on new tabs
 if has('nvim')
@@ -500,14 +644,81 @@ else
         \ endif
 endif
 
+" --------------------------------
+
 " <dadbod>
+
 vmap <Leader>D :DB<CR>
 " DB g:db = mysql://root@localhost/giraffe/
 
 " let g:dbs = {
 " \  'comp': 'mysql://root@localhost/giraffe'
 " \ }
-
+" --------------------------------
 " <vim-signature>
+
 nnoremap <leader>m :SignatureToggle<CR>
 let g:SignatureEnabledAtStartup=0
+" --------------------------------
+
+" <whichkey>
+
+nnoremap <silent> <leader> :WhichKey '<Space>'<CR>
+" --------------------------------
+
+" <gitgutter>
+
+nmap ghs <Plug>(GitGutterStageHunk)
+nmap ghu <Plug>(GitGutterUndoHunk)
+nmap ghp <Plug>(GitGutterPreviewHunk)
+" --------------------------------
+
+" <incsearch>
+
+map /  <Plug>(incsearch-forward)
+map ?  <Plug>(incsearch-backward)
+map g/ <Plug>(incsearch-stay)
+" automatic nohlsearch
+let g:incsearch#auto_nohlsearch = 1
+map n  <Plug>(incsearch-nohl-n)
+map N  <Plug>(incsearch-nohl-N)
+map *  <Plug>(incsearch-nohl-*)
+map #  <Plug>(incsearch-nohl-#)
+map g* <Plug>(incsearch-nohl-g*)
+map g# <Plug>(incsearch-nohl-g#)
+" --------------------------------
+
+" <incsearch-easymotion>
+
+map z/ <Plug>(incsearch-easymotion-/)
+map z? <Plug>(incsearch-easymotion-?)
+map zg/ <Plug>(incsearch-easymotion-stay)
+
+" map <Leader>/ <Plug>(incsearch-easymotion-/)
+
+" map <Leader>g/ <Plug>(incsearch-easymotion-stay)
+" --------------------------------
+
+" <devicons>
+
+" enable folder/directory glyph flag (disabled by default with 0)
+let g:WebDevIconsUnicodeDecorateFolderNodes = 1
+
+" enable open and close folder/directory glyph flags (disabled by default with 0)
+let g:DevIconsEnableFoldersOpenClose = 1
+
+" Fix buggy behavior of glyphs in NERDTree after source init.vim
+if exists("g:loaded_webdevicons")
+  call webdevicons#refresh()
+endif
+
+" the amount of space to use after the glyph character (default ' ')
+let g:WebDevIconsNerdTreeAfterGlyphPadding = ' '
+
+let g:WebDevIconsNerdTreeGitPluginForceVAlign = 1
+" --------------------------------
+
+" <LateX>
+
+" Aparently count the number of words in a LateX document
+map <F3> :w !detex \| wc -w<CR>
