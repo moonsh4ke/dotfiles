@@ -177,6 +177,8 @@ let mapleader=" "       " leader is space
 
 " Quick quit
 nmap <Leader>q :q<CR>
+nmap <Leader>w :w<CR>
+nmap <Leader>wq :wq<CR>
 " todo: shotcut to w and wq
 
 " Quick copy paste
