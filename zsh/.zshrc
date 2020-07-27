@@ -2,9 +2,7 @@ export PATH=$HOME/bin:/usr/local/bin:$PATH
 export PYTHONSTARTUP=~/.pythonrc
 
 # Path to your oh-my-zsh installation.
-export ZSH="/home/moon/.oh-my-zsh"
-
-# ZSH_THEME="robbyrussell"
+export ZSH="$HOME/.oh-my-zsh"
 
 DISABLE_AUTO_UPDATE="true"
 
@@ -69,6 +67,18 @@ bindkey -M menuselect 'j' vi-down-line-or-history
 # Use vim style line editing in zsh
 bindkey -v
 
+# ctrl-z as fg (open suspended vim session)
+fancy-ctrl-z () {
+  if [[ $#BUFFER -eq 0 ]]; then
+    BUFFER="fg"
+    zle accept-line
+  else
+    zle push-input
+    zle clear-screen
+  fi
+}
+zle -N fancy-ctrl-z
+bindkey '^Z' fancy-ctrl-z
 
 # Aliases
 source ~/.aliases.sh
@@ -99,3 +109,5 @@ function zle-line-init zle-keymap-select {
 zle -N zle-line-init
 
 zle -N zle-keymap-select
+
+[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
