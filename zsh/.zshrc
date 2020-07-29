@@ -67,6 +67,10 @@ bindkey -M menuselect 'j' vi-down-line-or-history
 # Use vim style line editing in zsh
 bindkey -v
 
+# Remap clear-screen since ^L is taken by tmux-vim
+bindkey "^O" clear-screen
+bindkey "^L" end-of-line
+
 # ctrl-z as fg (open suspended vim session)
 fancy-ctrl-z () {
   if [[ $#BUFFER -eq 0 ]]; then
