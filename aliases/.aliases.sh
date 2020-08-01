@@ -40,9 +40,14 @@ mcd() {
 }
 
 # ls aliases
-alias ll='ls -lah'
-alias la='ls -A'
-alias l='ls'
+# alias ll='ls -lahp'
+# alias la='ls -Ap'
+# alias l='ls -p'
+
+# Exa
+alias l="exa --icons --group-directories-first"
+alias la="exa --icons --group-directories-first -a"
+alias ll="exa --icons --group-directories-first -lhg"
 
 # chmod
 alias chmx='chmod +x'
@@ -58,6 +63,8 @@ alias open='xdg-open'
 
 alias df='df -h'
 alias du='du -h'
+alias dul='du -sh $(ls -p) | sort -hr'
+alias dula='du -sh $(ls -Ap) | sort -hr'
 
 # processes
 alias ka='killall'
