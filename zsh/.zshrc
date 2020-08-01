@@ -1,4 +1,5 @@
 export PATH=$HOME/bin:/usr/local/bin:$PATH
+export PATH="$HOME/.cargo/bin:$PATH"
 export PYTHONSTARTUP=~/.pythonrc
 
 # Path to your oh-my-zsh installation.
