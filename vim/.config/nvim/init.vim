@@ -62,11 +62,16 @@ Plug 'https://github.com/tpope/vim-dadbod' " Data base support
 " Plug 'https://github.com/kristijanhusak/vim-dadbod-ui' " UI for dadbod
 
 " Misc
+Plug 'vim-scripts/BufOnly.vim' " Close all buffers but not the one opened
 Plug 'iamcco/markdown-preview.nvim', { 'do': { -> mkdp#util#install() }, 'for': ['markdown', 'vim-plug']}
 Plug 'simnalamburt/vim-mundo'         " Gundo fork
 Plug 'tpope/vim-obsession' " Session management
 Plug 'liuchengxu/vim-which-key' " Pop-up to manage keybindings
 Plug 'ryanoasis/vim-devicons/' " Better icons suport for GUI
+" https://github.com/reedes/vim-pencil " Dunno but have decent amount of stars
+" Plugin 'jceb/vim-orgmode'
+" Plug 'https://github.com/SirVer/ultisnips' " Templates 
+" Plug 'https://github.com/wakatime/vim-wakatime' " Vim's activity statistics
 " Plug 'https://github.com/tpope/vim-rsi' " Command lines readline
 " --------------------------------
 
@@ -479,6 +484,7 @@ nmap <leader>: :History:<CR>
 nmap <leader>/ :History/<CR>
 nmap <Leader>, :Buffers<CR>
 nnoremap <Leader>o :Files<CR>
+nnoremap <leader>. :HFiles<CR>
 "nnoremap <Leader>os :ProjectFiles<CR>
 nnoremap <Leader>H :History<CR>
 
@@ -500,6 +506,8 @@ command! -bang ProjectFiles call fzf#vim#files('~/Source', {'options':['--layout
 " Projectfile preview on, sh on (kinda laggy)
 "command! -bang ProjectFiles call fzf#vim#files('~/Source', {'options': ['--layout=reverse', '--info=inline', '--preview', '~/.vim/plugged/fzf.vim/bin/preview.sh {}']}, <bang>0)
 
+" Hidden files
+command! -bang -nargs=? -complete=dir HFiles call fzf#vim#files(<q-args>, {'source': 'find'}, <bang>0)
 
 " Floating Window (NVIM only)
 "Let the input go up and the search list go down
