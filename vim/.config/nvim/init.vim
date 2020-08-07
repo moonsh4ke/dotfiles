@@ -1,87 +1,109 @@
-set nocompatible "enable vim functionality
+set nocompatible " Enable vim functionality
+
 " --------------------------------
 " |Plugins|
 " --------------------------------
+
 call plug#begin()
 
 " GUI
-Plug 'morhetz/gruvbox' " Colortheme
-Plug 'itchyny/lightline.vim' " Configurable statusline
-Plug 'mhinz/vim-startify' " Start screen
-Plug 'https://github.com/kshenoy/vim-signature' " Show marks in the side bar
-    " Git GUI
-Plug 'tpope/vim-fugitive' " Git interface
-Plug 'airblade/vim-gitgutter' " Asynchronous git diff
-Plug 'xuyuanp/nerdtree-git-plugin' " Show status of files in NerdTree
-" --------------------------------
+
+Plug 'https://github.com/morhetz/gruvbox' " Colortheme
+Plug 'https://github.com/itchyny/lightline.vim' " Configurable statusline
+Plug 'https://github.com/mhinz/vim-startify' " Start screen
+Plug 'https://github.com/kshenoy/vim-signature' " Show marks in the sign bar
+Plug 'https://github.com/ryanoasis/vim-devicons/' " Add Nerdfonts icons to file extensions
+" ---------------------------------
 
 " LSP, linting
-Plug 'neoclide/coc.nvim', {'branch': 'release'} " LSP support 
-Plug 'dense-analysis/ale' " Linting engine
-Plug 'maximbaz/lightline-ale' " Linter status bar
+
+Plug 'https://github.com/neoclide/coc.nvim', {'branch': 'release'} " LSP support 
+Plug 'https://github.com/dense-analysis/ale' " Linting engine
+Plug 'https://github.com/maximbaz/lightline-ale' " Linter status bar
 " --------------------------------
 
 " File management 
+
 Plug '$HOME/.fzf'
-Plug 'preservim/nerdtree' " File explorer
-Plug 'junegunn/fzf.vim' " Fuzzy search for files
-Plug 'tpope/vim-eunuch' " Unix shell commands in vim command-line
+Plug 'https://github.com/junegunn/fzf.vim' " Fuzzy search for files
+Plug 'https://github.com/preservim/nerdtree' " File explorer
+Plug 'https://github.com/tpope/vim-eunuch' " Unix shell commands in vim command-line
 " --------------------------------
 
 " Syntax highlight
-Plug 'luochen1990/rainbow' " Rainbow parentheses
-Plug 'wlangstroth/vim-racket' " Racket support
-Plug 'vim-python/python-syntax' " Python
-Plug 'rrethy/vim-hexokinase', { 'do': 'make hexokinase' } " Color support (needs golang)
+
+Plug 'https://github.com/luochen1990/rainbow' " Rainbow parentheses
+Plug 'https://github.com/wlangstroth/vim-racket' " Racket support
+Plug 'https://github.com/vim-python/python-syntax' " Python
+Plug 'https://github.com/rrethy/vim-hexokinase', { 'do': 'make hexokinase' } " Color support (needs golang)
 Plug 'https://github.com/plasticboy/vim-markdown'
-" ciaranm/securemodelines " Format c family language
 " --------------------------------
 
 " Text manipulation
 Plug 'https://github.com/tpope/vim-surround' " Easy management for sorroundings
-Plug 'machakann/vim-highlightedyank'
-Plug 'Yggdroot/indentLine' "Display the identation levelvs with thin vertical lines
-Plug 'tpope/vim-commentary' " Comment stuff out
+Plug 'https://github.com/machakann/vim-highlightedyank'
+Plug 'https://github.com/Yggdroot/indentLine' " Display the identation levelvs with thin vertical lines
+Plug 'https://github.com/tpope/vim-commentary' " Comment stuff out
 
-Plug 'easymotion/vim-easymotion' " Fastest motion management
+Plug 'https://github.com/easymotion/vim-easymotion' " Fastest motion management
 Plug 'https://github.com/haya14busa/incsearch.vim' " Enhancement for incsearch a.k.a '/'
 Plug 'https://github.com/haya14busa/incsearch-easymotion.vim'
 
 Plug 'https://github.com/godlygeek/tabular' " Text aligment
-" Plug 'https://github.com/raimondi/delimitmate' " Automatic (), {}
+" --------------------------------
+
+" Git
+
+Plug 'https://github.com/tpope/vim-fugitive' " Git interface
+Plug 'https://github.com/airblade/vim-gitgutter' " Asynchronous git diff
+Plug 'https://github.com/xuyuanp/nerdtree-git-plugin' " Show status of files in NerdTree
 " --------------------------------
 
 " Tmux
-Plug 'tmux-plugins/vim-tmux' " syntax hl, commentary, documentation, :make
+
 Plug 'https://github.com/christoomey/vim-tmux-navigator' " vim window movement integration in tmux
-" Plug 'https://github.com/roxma/vim-tmux-clipboard' " tmux cpy mode to unnamed registry
+Plug 'https://github.com/tmux-plugins/vim-tmux' " Syntax hl, commentary, documentation, :make
 " --------------------------------
 
-" SQL env
-Plug 'https://github.com/tpope/vim-dadbod' " Data base support
-" Plug 'https://github.com/kristijanhusak/vim-dadbod-ui' " UI for dadbod
+" Language interface enhancement
 
-" Misc
-Plug 'vim-scripts/BufOnly.vim' " Close all buffers but not the one opened
-Plug 'iamcco/markdown-preview.nvim', { 'do': { -> mkdp#util#install() }, 'for': ['markdown', 'vim-plug']}
-Plug 'simnalamburt/vim-mundo'         " Gundo fork
-Plug 'tpope/vim-obsession' " Session management
-Plug 'liuchengxu/vim-which-key' " Pop-up to manage keybindings
-Plug 'ryanoasis/vim-devicons/' " Better icons suport for GUI
+Plug 'https://github.com/tpope/vim-dadbod' " Databases support
+Plug 'https://github.com/iamcco/markdown-preview.nvim', { 'do': { -> mkdp#util#install() }, 'for': ['markdown', 'vim-plug']}
+" --------------------------------
+
+" Misc enhancements and functionalities
+
+Plug 'https://github.com/vim-scripts/BufOnly.vim' " Close all buffers but not the one opened
+Plug 'https://github.com/tpope/vim-obsession' " Session management
+Plug 'https://github.com/liuchengxu/vim-which-key' " Pop-up to manage keybindings
+" --------------------------------
+
+" Testing zone
+
+" Plug 'https://github.com/roxma/vim-tmux-clipboard' " tmux cpy mode to unnamed registry
 " https://github.com/reedes/vim-pencil " Dunno but have decent amount of stars
+" Plug 'https://github.com/kristijanhusak/vim-dadbod-ui' " UI for dadbod
 " Plugin 'jceb/vim-orgmode'
+" Plug 'https://github.com/raimondi/delimitmate' " Automatic (), {}
 " Plug 'https://github.com/SirVer/ultisnips' " Templates 
 " Plug 'https://github.com/wakatime/vim-wakatime' " Vim's activity statistics
 " Plug 'https://github.com/tpope/vim-rsi' " Command lines readline
+" ciaranm/securemodelines " Format c family language
 " --------------------------------
 
 call plug#end()
 
+" Plug justify text macro (h 25.3)
+packadd justify
+
 " --------------------------------
 " |Custom Hotkeys|
 " --------------------------------
-" Unbind for tmux
-" map <C-a> <Nop> 
+
+" Todo: Change more Ctrl keys
+
+" Select all
+nmap <C-a> ggVG 
 
 " Jump to start and end of line using the home row keys
 map H ^
@@ -97,11 +119,11 @@ nnoremap <C-l> <C-w>l
 nnoremap j gj
 nnoremap k gk
 
-" anwkward keys for LA layout
-nnoremap } ]
+" Anwkward keys for LA layout
+nnoremap <C-}> <C-]>
 nnoremap ° ^
 
-" more intuitive enter behavior (add line without entering in insert mode)
+" More intuitive enter behavior (add line without entering in insert mode)
 nmap <CR> o<Esc>
 " Search results centered please
 nnoremap <silent> n nzz
@@ -143,8 +165,12 @@ set showmatch           " highlight matching [{()}]
 set number " Show line numbers.
 set relativenumber " Show relative line numbering
 set laststatus=2 " Always show the status line at the bottom, even if you only have one window open.
-set backspace=indent,eol,start "allow backspacing over everything
-set hidden " allow hide unsaved buffers
+
+" indent: backspace de-indent, eol: backspace over eol to join lines,
+" start: erase more text than you entered diring a single insert command
+set backspace=indent,eol,start 
+
+set hidden " Allow hide unsaved buffers
 
 " Open new split panes to right and bottom, which feels more natural
 set splitbelow
@@ -173,6 +199,10 @@ set undofile
 set undodir=~/.config/nvim/undodir
 
 set scrolloff=12        " Keep cursor in approximately the middle of the screen
+
+" Quick separator
+ab ##s --------------------------------
+
 
 " --------------------------------
 " |Leader Shorcuts|
@@ -304,9 +334,10 @@ let g:rainbow_active = 1
 
 " <ALE>
 
-let b:ale_linters = ["clangd"]
 map <leader>at :ALEToggle<CR>
-let g:ale_enabled = 0
+
+" ALE only start in the specified ale_linters
+let g:ale_linters_explicit = 1
 " --------------------------------
 
 " <vim-cool>
@@ -483,10 +514,29 @@ let g:lightline.component_expand = {
 nmap <leader>: :History:<CR>
 nmap <leader>/ :History/<CR>
 nmap <Leader>, :Buffers<CR>
+nmap <leader>; :BuffersDelete<CR>
 nnoremap <Leader>o :Files<CR>
 nnoremap <leader>. :HFiles<CR>
 "nnoremap <Leader>os :ProjectFiles<CR>
 nnoremap <Leader>H :History<CR>
+
+" BD command to bdelete buffers
+function! s:delete_buffers(lines)
+  execute 'bdelete!' join(map(a:lines, {_, line -> split(line)[0]}))
+endfunction
+
+function! s:list_buffers()
+  redir => list
+  silent ls
+  redir END
+  return split(list, "\n")
+endfunction
+
+command! BuffersDelete call fzf#run(fzf#wrap({
+  \ 'source': s:list_buffers(),
+  \ 'sink*': { lines -> s:delete_buffers(lines) },
+  \ 'options': '--multi --reverse --bind ctrl-a:select-all+accept'
+\ }))
 
 " Previews highlight off/ona (sh = syntax highlight)
 
@@ -509,48 +559,17 @@ command! -bang ProjectFiles call fzf#vim#files('~/Source', {'options':['--layout
 " Hidden files
 command! -bang -nargs=? -complete=dir HFiles call fzf#vim#files(<q-args>, {'source': 'find'}, <bang>0)
 
-" Floating Window (NVIM only)
-"Let the input go up and the search list go down
+" Floating window
+let g:fzf_layout = { 'window': { 'width': 0.9, 'height': 0.6 } }
 
-let $FZF_DEFAULT_OPTS = '--layout=reverse'
+" Border style (rounded / sharp / horizontal)
+let g:fzf_layout = { 'window': { 'width': 0.9, 'height': 0.6, 'highlight': 'fzfFloatingBorder', 'border': 'rounded' } }
+hi fzfFloatingBorder guifg=#458788
+"" Todo: play with these settings
 
-"Open FZF and choose floating window
-let g:fzf_layout = { 'window': 'call OpenFloatingWin()' }
-
-function! OpenFloatingWin()
-  let height = &lines - 3
-  let width = float2nr(&columns - (&columns * 2 / 10))
-  let col = float2nr((&columns - width) / 2)
-
-  "Set the position, size, etc. of the floating window.
-  "The size configuration here may not be so flexible, and there's room for further improvement.
-  let opts = {
-        \ 'relative': 'editor',
-        \ 'row': height * 0.3,
-        \ 'col': col + 30,
-        \ 'width': width * 2 / 3,
-        \ 'height': height / 2
-        \ }
-
-  let buf = nvim_create_buf(v:false, v:true)
-  let win = nvim_open_win(buf, v:true, opts)
-
-  "Set Floating Window Highlighting
-  call setwinvar(win, '&winhl', 'Normal:Pmenu')
-
-  setlocal
-        \ buftype=nofile
-        \ nobuflisted
-        \ bufhidden=hide
-        \ nonumber
-        \ norelativenumber
-        \ signcolumn=no
-endfunction
-
-" Todo: play with these settings
 let g:fzf_colors =
-\ { 'fg':      ['fg', 'Normal'],
-  \ 'bg':      ['bg', 'Normal'],
+\ { 'fg':      ['fg', 'fzfFg'],
+  \ 'bg':      ['bg', 'fzfBg'],
   \ 'hl':      ['fg', 'Comment'],
   \ 'fg+':     ['fg', 'CursorLine', 'CursorColumn', 'Normal'],
   \ 'bg+':     ['bg', 'CursorLine', 'CursorColumn'],
@@ -562,6 +581,10 @@ let g:fzf_colors =
   \ 'marker':  ['fg', 'Keyword'],
   \ 'spinner': ['fg', 'Label'],
   \ 'header':  ['fg', 'Comment'] }
+
+hi fzfFg guifg=#d5c4a1
+hi fzfBg guibg=#1d2021
+
 " --------------------------------
 
 " <vim-hexokinase>

@@ -3,6 +3,6 @@ set expandtab
 set shiftwidth=4
 set softtabstop=4
 
-" Enable flake8 and mypy
+" Enable flake8
 let b:ale_linters = ["flake8"]
 let python_highlight_all = 1  " python-syntax package
