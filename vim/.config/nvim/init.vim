@@ -44,6 +44,7 @@ Plug 'https://github.com/tpope/vim-surround' " Easy management for sorroundings
 Plug 'https://github.com/machakann/vim-highlightedyank'
 Plug 'https://github.com/Yggdroot/indentLine' " Display the identation levelvs with thin vertical lines
 Plug 'https://github.com/tpope/vim-commentary' " Comment stuff out
+Plug 'https://github.com/dkarter/bullets.vim' " Automatic bullet lists
 
 Plug 'https://github.com/easymotion/vim-easymotion' " Fastest motion management
 Plug 'https://github.com/haya14busa/incsearch.vim' " Enhancement for incsearch a.k.a '/'
@@ -74,8 +75,10 @@ Plug 'https://github.com/iamcco/markdown-preview.nvim', { 'do': { -> mkdp#util#i
 " Misc enhancements and functionalities
 
 Plug 'https://github.com/vim-scripts/BufOnly.vim' " Close all buffers but not the one opened
+Plug 'https://github.com/simnalamburt/vim-mundo' " Better undo tree
 Plug 'https://github.com/tpope/vim-obsession' " Session management
 Plug 'https://github.com/liuchengxu/vim-which-key' " Pop-up to manage keybindings
+Plug 'https://github.com/jpalardy/vim-slime' " Send source to REPL
 " --------------------------------
 
 " Testing zone
@@ -96,13 +99,116 @@ call plug#end()
 " Plug justify text macro (h 25.3)
 packadd justify
 
+
+" --------------------------------
+" |Setters & Vim configuration|
+" --------------------------------
+
+" Basic
+
+syntax on
+set number " Show line numbers.
+set relativenumber " Show relative line numbering
+set hidden " Allow hide unsaved buffers
+set noerrorbells visualbell t_vb= " Disable audible bell because it's annoying.
+set mouse+=a " Enable mouse support
+set scrolloff=12        " Keep cursor in approximately the middle of the screen
+set guioptions-=T " Remove toolbar
+set inccommand=nosplit " Live preview of substituion
+set timeout timeoutlen=1000 ttimeoutlen=100 " fix slow O inserts
+set whichwrap=h,l " If the end or the beggining of a line is reached keep moving to the previous/next line
+" filetype indent on      " load filetype-specific indent files
+" filetype plugin on      " load filetype specific plugin files
+" --------------------------------
+
+" Gui
+
+set shortmess+=I " Disable the default Vim startup message.
+set laststatus=2 " Always show the status line at the bottom, even if you only have one window open.
+set noshowmode " Get rid of built-in mode text because of lightline plugin
+" --------------------------------
+
+" Searching
+
+
+set hlsearch " Highlight all search patterns after
+set ignorecase " Case-insensitive search
+set smartcase " The search becomes case-sensitive if it contains any capital letters.
+set incsearch " Enable searching as you type rather than waiting til you press enter.
+" --------------------------------
+
+" Text
+
+set formatoptions=crqj
+" set textwidth=150
+
+" use 4 spaces instead of tabs during formatting
+set expandtab
+set tabstop=4
+set shiftwidth=4
+set softtabstop=4
+
+set showmatch           " highlight matching [{()}]
+" --------------------------------
+
+" Backup 
+
+set backup " Enable backup files
+set writebackup " Backup after :w, so if :w fails doesn't lose pre :w file
+
+set backupdir=~/.config/nvim/backups/,~/.config/nvim/backups/backups2/
+set backupext=.bak " Backup extension
+" --------------------------------
+
+" Swapfiles
+
+set swapfile " Enable swapfiles
+set updatetime=300 " Amount of time to save swap files (miliseconds)
+set directory=. " Save swapfile in the same dir of the buffer
+
+" --------------------------------
+
+" Undo
+
+set undolevels=5000 " Increase undo size
+set undofile " Maintain undo history between sessions
+set undodir=~/.config/nvim/undodir
+" --------------------------------
+
+" Command mode completion
+
+set wildmenu            " Visual autocomplete for command menu
+set wildignore=*.png,*.jpg,*.gif " Extensions to ignore
+" --------------------------------
+
+" Backspace
+
+set backspace=indent " Backspace de-indent
+set backspace+=eol " Backspace over eol to join lines
+set backspace+=start " Allow erase more text than you entered during a single insert command
+" --------------------------------
+
+" Windows
+
+" Open new split panes to right and bottom, which feels more natural
+set splitbelow
+set splitright
+" --------------------------------
+
+" Abbreviations
+
+ab ##s --------------------------------
+
+
 " --------------------------------
 " |Custom Hotkeys|
 " --------------------------------
 
+nmap Q <Nop> " 'Q' in normal mode enters Ex mode. You almost never want this.
+
 " Todo: Change more Ctrl keys
 
-" Select all
+" " Select all
 nmap <C-a> ggVG 
 
 " Jump to start and end of line using the home row keys
@@ -138,71 +244,6 @@ nnoremap <C-i> <C-i>zz
 vnoremap <Tab> >
 vnoremap <S-Tab> <
 
-" --------------------------------
-" |Setters & Vim configuration|
-" --------------------------------
-
-syntax on
-set inccommand=nosplit " Live preview of substituion
-" use 4 spaces instead of tabs during formatting
-set expandtab
-set tabstop=4
-set shiftwidth=4
-set softtabstop=4
-
-set noshowmode "get rid of built-in mode text because of lightline
-set hlsearch
-set timeout timeoutlen=1000 ttimeoutlen=100 " fix slow O inserts
-set shortmess+=I " Disable the default Vim startup message.
-
-" Command mode completion
-set wildmenu            " visual autocomplete for command menu
-set wildignore=*.png,*.jpg,*.gif " Extensions to ignore
-
-set showmatch           " highlight matching [{()}]
-" filetype indent on      " load filetype-specific indent files
-" filetype plugin on      " load filetype specific plugin files
-set number " Show line numbers.
-set relativenumber " Show relative line numbering
-set laststatus=2 " Always show the status line at the bottom, even if you only have one window open.
-
-" indent: backspace de-indent, eol: backspace over eol to join lines,
-" start: erase more text than you entered diring a single insert command
-set backspace=indent,eol,start 
-
-set hidden " Allow hide unsaved buffers
-
-" Open new split panes to right and bottom, which feels more natural
-set splitbelow
-set splitright
-
-" Continue comments when pressing ENTER in I mode
-" Dont continue comment after o and O
-autocmd FileType * setlocal formatoptions+=r formatoptions-=o
-
-" Searching
-" This setting makes search case-insensitive when all characters in the string
-" being searched are lowercase. However, the search becomes case-sensitive if
-" it contains any capital letters. This makes searching more convenient.
-set ignorecase
-set smartcase
-set incsearch " Enable searching as you type, rather than waiting till you press enter.
-nmap Q <Nop> " 'Q' in normal mode enters Ex mode. You almost never want this.
-set noerrorbells visualbell t_vb= " Disable audible bell because it's annoying.
-set mouse+=a " Enable mouse support
-"set nowrap "if the line is longest than windows hide the line
-set noswapfile "dont create swap files
-set guioptions-=T " Remove toolbar
-
-" Maintain undo history between sessions
-set undofile 
-set undodir=~/.config/nvim/undodir
-
-set scrolloff=12        " Keep cursor in approximately the middle of the screen
-
-" Quick separator
-ab ##s --------------------------------
-
 
 " --------------------------------
 " |Leader Shorcuts|
@@ -212,6 +253,7 @@ let mapleader=" "       " leader is space
 
 " Quick quit
 nmap <Leader>q :q<CR>
+nmap <leader>b :bd<CR>
 nmap <Leader>w :w<CR>
 nmap <Leader>wq :wq<CR>
 " todo: shotcut to w and wq
@@ -227,7 +269,7 @@ vmap <Leader>p "+p
 vmap <Leader>P "+P
 
 "  <Space>  --  <leader><leader> toggles between buffers
-nnoremap <Leader><Leader> <c-^>
+nnoremap <Leader>a <c-^>
 
 " highlight current line, but only in active window
 augroup CursorLineOnlyInActiveWindow
@@ -334,7 +376,7 @@ let g:rainbow_active = 1
 
 " <ALE>
 
-map <leader>at :ALEToggle<CR>
+map <leader>L :ALEToggle<CR>
 
 " ALE only start in the specified ale_linters
 let g:ale_linters_explicit = 1
@@ -349,12 +391,12 @@ let g:CoolTotalMatches = 1
 
 "Give more space for displaying messages.
 set cmdheight=1
-" Having longer updatetime (default is 4000 ms = 4 s) leads to noticeable
-" delays and poor user experience.
-set updatetime=300
+
 " Some servers have issues with backup files, see #649.
-set nobackup
-set nowritebackup
+" https://github.com/neoclide/coc.nvim/issues/649
+" set nobackup
+" set nowritebackup
+
 " Don't pass messages to |ins-completion-menu|.
 set shortmess+=c
 
@@ -731,7 +773,6 @@ map zg/ <Plug>(incsearch-easymotion-stay)
 
 " map <Leader>g/ <Plug>(incsearch-easymotion-stay)
 " --------------------------------
-
 " <devicons>
 
 " enable folder/directory glyph flag (disabled by default with 0)
@@ -755,3 +796,17 @@ let g:WebDevIconsNerdTreeGitPluginForceVAlign = 1
 
 " Aparently count the number of words in a LateX document
 map <F3> :w !detex \| wc -w<CR>
+
+" <bullets.vim>
+let g:bullets_enabled_file_types = [
+    \ 'markdown',
+    \ 'text',
+    \ 'gitcommit'
+    \]
+
+" <vim-slime>
+let g:slime_default_config = {"socket_name": "default", "target_pane": ".2"}
+let g:slime_target = "tmux"
+let g:slime_no_mappings = 1
+xmap <leader>c <Plug>SlimeRegionSend
+nmap <leader>c :SlimeSendCurrentLine<CR>
