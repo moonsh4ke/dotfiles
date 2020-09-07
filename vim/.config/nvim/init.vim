@@ -1,5 +1,4 @@
 set nocompatible " Enable vim functionality
-
 " --------------------------------
 " |Plugins|
 " --------------------------------
@@ -177,6 +176,7 @@ set undodir=~/.config/nvim/undodir
 
 " Command mode completion
 
+set wildignorecase " Case insensitive when completing file names and directories.
 set wildmenu            " Visual autocomplete for command menu
 set wildignore=*.png,*.jpg,*.gif " Extensions to ignore
 " --------------------------------
@@ -203,13 +203,22 @@ ab ##s --------------------------------
 " --------------------------------
 " |Custom Hotkeys|
 " --------------------------------
+"
+" Wordwise Ctrl-Y in insert mode
+noremap! <M-y> <Esc>klyWjpa
+noremap! <M-e> <Esc>jlyWkpa
+
+nnoremap <M-+> <C-a>
+nnoremap <M--> <C-x>
+
+nnoremap <M-d> 0D
 
 nmap Q <Nop> " 'Q' in normal mode enters Ex mode. You almost never want this.
 
 " Todo: Change more Ctrl keys
 
 " " Select all
-nmap <C-a> ggVG 
+nnoremap <C-a> ggVG 
 
 " Jump to start and end of line using the home row keys
 map H ^
@@ -660,7 +669,7 @@ let g:startify_files_number = 5 " Max. number of files to show
 " CAREFUL: Do not override Startify built-in mappings (e, i, q, b, s, v, t)
 
 " Custom
-let g:startify_bookmarks = [{'a': '~/.alacritty.yml'}, {'l': '~/.aliases.sh'}, {'n': '~/.config/nvim/init.vim'}, {'m': '~/.tmux.conf'}, {'z': '~/.zshrc' } ]
+let g:startify_bookmarks = [{'a': '~/.alacritty.yml'}, {'c': '~/.config/compton.conf'}, {'i': '~/.config/i3/config'}, {'l': '~/.aliases.sh'}, {'m': '~/.tmux.conf'}, {'n': '~/.config/nvim/init.vim'}, {'p': '~/.config/polybar/config'}, {'z': '~/.zshrc' } ]
 
 " Commands
 let g:startify_commands = [
