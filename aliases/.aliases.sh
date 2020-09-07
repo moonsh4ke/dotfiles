@@ -1,11 +1,15 @@
 # quick access
-alias aliases='nvim ~/.aliases.sh'
 alias acfg='nvim ~/dotfiles/terminal/.alacritty.yml'
-alias nvcfg='nvim ~/.config/nvim/init.vim'
-alias zcfg='nvim ~/.zshrc'
-alias tcfg='nvim ~/.tmux.conf'
-alias nv='nvim'
+alias aliases='nvim ~/.aliases.sh'
+alias ccfg='nvim ~/.config/compton.conf'
 alias e='nvim'
+alias i3cfg='nvim ~/.config/i3/config'
+alias nvcfg='nvim ~/.config/nvim/init.vim'
+alias nv='nvim'
+alias mcfg='nvim ~/.config/neomutt/neomuttrc'
+alias pcfg="nvim ~/.config/polybar/config"
+alias tcfg='nvim ~/.tmux.conf'
+alias zcfg='nvim ~/.zshrc'
 # refresh config
 alias rf='source ~/.zshrc'
 alias td='nvim ~/Documents/notes/todo.txt'
@@ -28,7 +32,6 @@ alias ..="cd .."
 alias ...="cd ../.."
 alias ....="cd ../../.."
 alias .....="cd ../../../.."
-alias ~="cd ~" # `cd` is probably faster to type though
 alias -- -="cd -"
 #alias d="cd ~/Documents/Dropbox"
 alias dl="cd ~/Downloads"
@@ -93,6 +96,7 @@ alias python='python3'
 
 # fzf
 alias nve='nvim -o `fzf`'
+alias fzf.='find | fzf' # Search for dotfiles
 
 # tmuxinator
 alias mux='tmuxinator'
@@ -110,3 +114,4 @@ alias timer='echo "Timer started. Stop with Ctrl-D." && date && time cat && date
 
 alias q='exit'
 
+alias weather="curl wttr.in"
