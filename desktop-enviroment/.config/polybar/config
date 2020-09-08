@@ -54,16 +54,15 @@ padding-right = 2
 module-margin-left = 1
 module-margin-right = 2
 
-font-0 = JetBrainsMono Nerd Font Mono:style=Regular:pixelsize=14
-font-1 = fixed:pixelsize=14;1
-font-2 = unifont:fontformat=truetype:size=14:antialias=false;0
-font-3 = siji:pixelsize=14;1
+font-0 = JetBrainsMono Nerd Font:pixelsize=14
+font-1 = Weather Icons:style=Regular
 ;for polypomo
-font-4 = Symbola:style=Regular
+; font-4 = Symbola:style=Regular
 
-modules-left = i3
+; Panel
+modules-left = i3 xwindow
 modules-center = 
-modules-right = player-mpris-tail pulseaudio polypomo battery date powermenu
+modules-right =pulseaudio polypomo battery openweathermap-fullfeatured date powermenu
 
 tray-position = right
 tray-padding = 2
@@ -303,18 +302,20 @@ format-underline = #0a6cf5
 label = %date% %time%
 
 [module/pulseaudio]
+label-font = 1
 type = internal/pulseaudio
 
 format-volume = <ramp-volume> <label-volume>
+format-volume-underline = #a89984
 label-volume = %percentage%%
 label-volume-foreground = ${root.foreground}
 
-label-muted = 🔇 muted
+label-muted = 婢 %percentage%%
 label-muted-foreground = #ffffff
 
-ramp-volume-0 = 🔈
-ramp-volume-1 = 🔉
-ramp-volume-2 = 🔊
+ramp-volume-0 = 奄
+ramp-volume-1 = 奔
+ramp-volume-2 = 墳
 
 bar-volume-width = 10
 bar-volume-foreground-0 = #55aa55
@@ -460,12 +461,21 @@ type = custom/script
 exec = ~/.config/polybar/scripts/polypomo --breaktime 300
 tail = true
 
-label = %output%
+label = %output%
+label-underline = #cc241d
+format-label = <tomato> <label-time>
 click-left = ~/.config/polybar/scripts/polypomo toggle
 click-right = ~/.config/polybar/scripts/polypomo end
 click-middle = ~/.config/polybar/scripts/polypomo lock
 scroll-up = ~/.config/polybar/scripts/polypomo time +60
 scroll-down = ~/.config/polybar/scripts/polypomo time -60
+
+[module/openweathermap-fullfeatured]
+label-font = 2
+type = custom/script
+exec = ~/.config/polybar/scripts/openweathermap-fullfeatured.sh
+interval = 600
+format-underline = #fabd2f
 
 [settings]
 screenchange-reload = true
