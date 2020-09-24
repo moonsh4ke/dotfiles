@@ -56,7 +56,7 @@ Plug 'https://github.com/godlygeek/tabular' " Text aligment
 
 Plug 'https://github.com/tpope/vim-fugitive' " Git interface
 Plug 'https://github.com/airblade/vim-gitgutter' " Asynchronous git diff
-Plug 'https://github.com/xuyuanp/nerdtree-git-plugin' " Show status of files in NerdTree
+" Plug 'https://github.com/xuyuanp/nerdtree-git-plugin' " Show status of files in NerdTree
 " --------------------------------
 
 " Tmux
@@ -199,6 +199,12 @@ set splitright
 
 ab ##s --------------------------------
 
+" Autocommands
+
+" Remember cursor position when re opening a file
+if has("autocmd")
+  au BufReadPost * if line("'\"") > 0 && line("'\"") <= line("$") | exe "normal! g`\"" | endif
+endif
 
 " --------------------------------
 " |Custom Hotkeys|
@@ -387,8 +393,10 @@ let g:rainbow_active = 1
 
 map <leader>L :ALEToggle<CR>
 
+let b:ale_linters = ["raco"]
 " ALE only start in the specified ale_linters
 let g:ale_linters_explicit = 1
+
 " --------------------------------
 
 " <vim-cool>
