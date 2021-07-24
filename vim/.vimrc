@@ -1,70 +1,176 @@
-set nocompatible "enable vim functionality
-" --------------------------------------------------------------------------------------------------------------------------------------------------------
+set nocompatible " Enable vim functionality
+
+" automatic ctags https://stackoverflow.com/questions/155449/vim-auto-generate-ctags
+au BufWritePost *.c,*.cpp,*.h silent! !ctags -R &
+
+" Plug justify text macro (h 25.3)
+packadd justify
+
+" --------------------------------
 " |Plugins|
-" --------------------------------------------------------------------------------------------------------------------------------------------------------
+" --------------------------------
 
-call plug#begin('~/.config/nvim/plugged')
+call plug#begin()
+Plug 'https://github.com/morhetz/gruvbox' " Colortheme
+Plug 'https://github.com/mhinz/vim-startify' " Start screen
+Plug 'https://github.com/preservim/nerdtree' " File explorer
+Plug 'https://github.com/luochen1990/rainbow' " Rainbow parentheses
+Plug 'https://github.com/easymotion/vim-easymotion' " Fastest motion management
+Plug 'https://github.com/machakann/vim-highlightedyank'
+Plug 'https://github.com/Yggdroot/indentLine' " Display the identation levelvs with pipes |
 
-" GUI
-Plug 'machakann/vim-highlightedyank'
-Plug 'morhetz/gruvbox' " colortheme
-Plug 'itchyny/lightline.vim' "configurable statusline
-Plug 'mhinz/vim-startify' " start screen
-" LSP, linting
-Plug 'neoclide/coc.nvim', {'branch': 'release'}
-Plug 'dense-analysis/ale' "linting engine
-Plug 'maximbaz/lightline-ale' " linter status bar
-" File management 
-Plug 'junegunn/fzf', { 'do': { -> fzf#install() } } "File finder
+Plug 'https://github.com/tmux-plugins/vim-tmux' " Syntax hl, commentary, documentation, :make
+Plug 'https://github.com/christoomey/vim-tmux-navigator' " vim window movement integration in tmux
+
+Plug 'https://github.com/simnalamburt/vim-mundo' " Better undo tree
+Plug 'https://github.com/itchyny/lightline.vim' " Prettier status bar
+Plug 'https://github.com/tpope/vim-surround' " Surround functionality
+Plug 'https://github.com/romainl/vim-cool' " disable highlight search automatically when you are done searching
+Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
 Plug 'junegunn/fzf.vim'
-Plug 'preservim/nerdtree' "File explorer
-Plug 'tpope/vim-eunuch' "unix shell commands in vim command-line
-" Syntax highlight
-Plug 'luochen1990/rainbow'             " Rainbow parentheses
-Plug 'wlangstroth/vim-racket'   "racket support
-Plug 'vim-python/python-syntax' "python
-" ciaranm/securemodelines " format c family language
-" Movement
-Plug 'easymotion/vim-easymotion'
-" Text manipulation
-Plug 'romainl/vim-cool' " Disables highlight when search is done
-Plug 'Yggdroot/indentLine' "Display the identation levelvs with thin vertical lines
-Plug 'tpope/vim-commentary' " Comment stuff out
-" Running Code
-Plug 'skywind3000/asyncrun.vim'
-" Git GUI
-"Plug 'airblade/vim-gitgutter'
-Plug 'tpope/vim-fugitive'             " Git interface
-"Plug 'airblade/vim-gitgutter'
-"Plug 'xuyuanp/nerdtree-git-plugin'    " Show status of files in NerdTree
-" Tmux
-Plug 'tmux-plugins/vim-tmux' " syntax hl, commentary, documentation, :make
-Plug 'https://github.com/christoomey/vim-tmux-navigator' " vim movement in tmux
-"Misc
 call plug#end()
-" --------------------------------------------------------------------------------------------------------------------------------------------------------
+
+" --------------------------------
+" |Setters & Vim configuration|
+" --------------------------------
+
+" Basic
+
+syntax on
+set number " Show line numbers.
+set relativenumber " Show relative line numbering
+set hidden " Allow hide unsaved buffers
+set noerrorbells visualbell t_vb= " Disable audible bell because it's annoying.
+set mouse+=a " Enable mouse support
+set scrolloff=12        " Keep cursor in approximately the middle of the screen
+set guioptions-=T " Remove toolbar
+
+if has('nvim')
+	set inccommand=nosplit " Live preview of substituion
+endif
+
+set whichwrap=h,l " If the end or the beggining of a line is reached keep moving to the previous/next line
+" --------------------------------
+
+" Gui
+
+set shortmess+=I " Disable the default Vim startup message.
+set laststatus=2 " Always show the status line at the bottom, even if you only have one window open.
+set noshowmode " Get rid of built-in mode text because of lightline plugin
+" --------------------------------
+
+" Searching
+
+set hlsearch " Highlight all search patterns after
+set ignorecase " Case-insensitive search
+set smartcase " The search becomes case-sensitive if it contains any capital letters.
+set incsearch " Enable searching as you type rather than waiting til you press enter.
+" --------------------------------
+
+" Text
+
+" set formatoptions=crqj
+" set textwidth=150
+
+" use 4 spaces instead of tabs during formatting
+set expandtab
+set tabstop=4
+set shiftwidth=4
+set softtabstop=4
+
+set showmatch           " highlight matching [{()}]
+" --------------------------------
+
+" Backup 
+
+" if has('nvim')
+" 	set backup " Enable backup files
+" 	set writebackup " Backup after :w, so if :w fails doesn't lose pre :w file
+" 
+" 	set backupdir=~/.config/nvim/backups/,~/.config/nvim/backups/backups2/
+" 	set backupext=.bak " Backup extension
+" endif
+" --------------------------------
+
+" Swapfiles
+
+set swapfile " Enable swapfiles
+set updatetime=300 " Amount of time to save swap files (miliseconds)
+set directory=. " Save swapfile in the same dir of the buffer
+
+" --------------------------------
+
+" Undo
+
+set undolevels=5000 " Increase undo size
+set undofile " Maintain undo history between sessions
+set undodir=~/.config/nvim/undodir
+" --------------------------------
+
+" Command mode completion
+
+set wildignorecase " Case insensitive when completing file names and directories.
+set wildmenu            " Visual autocomplete for command menu
+set wildignore=*.png,*.jpg,*.gif " Extensions to ignore
+" --------------------------------
+
+" Backspace
+
+set backspace=indent " Backspace de-indent
+set backspace+=eol " Backspace over eol to join lines
+set backspace+=start " Allow erase more text than you entered during a single insert command
+" --------------------------------
+
+" Windows
+
+" Open new split panes to right and bottom, which feels more natural
+set splitbelow
+set splitright
+" --------------------------------
+
+" Abbreviations
+
+ab ##s --------------------------------
+
+" Autocommands
+
+" Remember cursor position when re opening a file
+if has("autocmd")
+  au BufReadPost * if line("'\"") > 0 && line("'\"") <= line("$") | exe "normal! g`\"" | endif
+endif
+
+" --------------------------------
 " |Custom Hotkeys|
-" --------------------------------------------------------------------------------------------------------------------------------------------------------
-" Unbind for tmux
-map <C-a> <Nop> 
+" --------------------------------
+"
+" Wordwise Ctrl-Y in insert mode
+noremap! <M-y> <Esc>klyWjpa
+noremap! <M-e> <Esc>jlyWkpa
+
+nnoremap <M-+> <C-a>
+nnoremap <M--> <C-x>
+
+vmap gy myy`y
+
+nnoremap <M-d> 0D
+
+nmap Q <Nop> " 'Q' in normal mode enters Ex mode. You almost never want this.
+
+" Jump to start and end of line using the home row keys
+map H ^
+map L $
 
 " quicker window movement
-nnoremap <M-j> <C-w>j
-nnoremap <M-h> <C-w>h
-nnoremap <M-k> <C-w>k
-nnoremap <M-l> <C-w>l
+nnoremap <C-j> <C-w>j
+nnoremap <C-h> <C-w>h
+nnoremap <C-k> <C-w>k
+nnoremap <C-l> <C-w>l
 
 " Move by line
 nnoremap j gj
 nnoremap k gk
 
-" anwkward keys for LA layout
-nnoremap } ]
-nnoremap ° ^
-
-" more intuitive enter behavior (add line without entering in insert mode)
-
-nmap <S-CR> O<Esc>
+" More intuitive enter behavior (add line without entering in insert mode)
 nmap <CR> o<Esc>
 
 " Search results centered please
@@ -80,61 +186,17 @@ nnoremap <C-i> <C-i>zz
 vnoremap <Tab> >
 vnoremap <S-Tab> <
 
-" --------------------------------------------------------------------------------------------------------------------------------------------------------
-" |Setters & Vim configuration|
-" --------------------------------------------------------------------------------------------------------------------------------------------------------
-
-" use 4 spaces instead of tabs during formatting
-set expandtab
-set noshowmode "get rid of built-in mode text because of lightline
-set tabstop=4
-set shiftwidth=4
-set hlsearch
-set softtabstop=4
-" set timeout timeoutlen=1000 ttimeoutlen=100 " fix slow O inserts
-syntax on
-set guifont=Monospace\ 12 " Toy ciego
-set shortmess+=I " Disable the default Vim startup message.
-set wildmenu            " visual autocomplete for command menu
-set showmatch           " highlight matching [{()}]
-filetype indent on      " load filetype-specific indent files
-filetype plugin on      " load filetype specific plugin files
-set number " Show line numbers.
-set relativenumber " Show relative line numbering
-set laststatus=2 " Always show the status line at the bottom, even if you only have one window open.
-set backspace=indent,eol,start "allow backspacing over everything
-set hidden " allow hide unsaved buffers
-
-" open new split panes to right and bottom, which feels more natural
-set splitbelow
-set splitright
-
-" Searching
-" This setting makes search case-insensitive when all characters in the string
-" being searched are lowercase. However, the search becomes case-sensitive if
-" it contains any capital letters. This makes searching more convenient.
-set ignorecase
-set smartcase
-set incsearch " Enable searching as you type, rather than waiting till you press enter.
-nmap Q <Nop> " 'Q' in normal mode enters Ex mode. You almost never want this.
-set noerrorbells visualbell t_vb= " Disable audible bell because it's annoying.
-set mouse+=a " Enable mouse support
-"set nowrap "if the line is longest than windows hide the line
-set noswapfile "dont create swap files
-set guioptions-=T " Remove toolbar
-
-" --------------------------------------------------------------------------------------------------------------------------------------------------------
+" --------------------------------
 " |Leader Shorcuts|
-" --------------------------------------------------------------------------------------------------------------------------------------------------------
+" --------------------------------
 
 let mapleader=" "       " leader is space
 
-" Quick run
-map <leader>r :AsyncRun -raw python3 % <CR>
-
 " Quick quit
 nmap <Leader>q :q<CR>
-" todo: shotcut to w and wq
+nmap <leader>b :bd<CR>
+nmap <Leader>w :w<CR>
+nmap <Leader>wq :wq<CR>
 
 " Quick copy paste
 nmap <Leader>y "+y
@@ -145,9 +207,10 @@ nmap <Leader>p "+p
 nmap <Leader>P "+P
 vmap <Leader>p "+p
 vmap <Leader>P "+P
+vmap <Leader>gy my"+y`y
 
 "  <Space>  --  <leader><leader> toggles between buffers
-nnoremap <Leader><Leader> <c-^>
+nnoremap <Leader>a <c-^>
 
 " highlight current line, but only in active window
 augroup CursorLineOnlyInActiveWindow
@@ -155,168 +218,103 @@ augroup CursorLineOnlyInActiveWindow
     autocmd VimEnter,WinEnter,BufWinEnter * setlocal cursorline
     autocmd WinLeave * setlocal nocursorline
 augroup END
-
-" --------------------------------------------------------------------------------------------------------------------------------------------------------
+" --------------------------------
 
 " <gruvbox> - tema pulento
+
+" Deal with term colors
+if exists('+termguicolors')
+  let &t_8f="\<Esc>[38;2;%lu;%lu;%lum"
+  let &t_8b="\<Esc>[48;2;%lu;%lu;%lum"
+  set termguicolors
+endif
+
+let g:gruvbox_sign_column='bg0' " Sign Column same color as background
+let g:gruvbox_contrast_dark = 'hard'
+let g:gruvbox_invert_selection='0' " Proper visual mode selection color
+let g:gruvbox_italic=1
 colorscheme gruvbox
 set background=dark
 
-" --------------------------------------------------------------------------------------------------------------------------------------------------------
+" Set background to none so tmux can set active pane as darknest one and
+" inactive as lighter
+highlight Normal ctermbg=none guibg=none
 
 " <nerdtree>
+
 nnoremap <Leader>n :NERDTreeToggle<CR>
-nnoremap <Leader>f :NERDTreeFind<CR>
+nnoremap <Leader>N :NERDTreeFind<CR>
 " Close vim if only window left is NERDTree
 autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif
-" --------------------------------------------------------------------------------------------------------------------------------------------------------
 
-" <easymotion>
-map <Leader> <Plug>(easymotion-prefix)
-" Use uppercase target labels and type as a lower case
-let g:EasyMotion_use_upper = 1
-let g:EasyMotion_keys = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ;'
-" JK motions: Line motions
-map <Leader>t <Plug>(easymotion-t2)
+" Disable signcolumn for NERDTree
+autocmd FileType nerdtree setlocal signcolumn=no
 
-" --------------------------------------------------------------------------------------------------------------------------------------------------------
+" Disables display of the 'Bookmarks' label and
+" 'Press ? for help' text.
+let NERDTreeMinimalUI=1
 
+" Display hidden files
+let NERDTreeShowHidden=1
+
+" Show line number in nerdtree
+let NERDTreeShowLineNumbers=1
+
+" Close tree after open a file
+let NERDTreeQuitOnOpen = 1
+
+" Automatically delete the buffer of the file you just deleted with NerdTree:
+let NERDTreeAutoDeleteBuffer = 1
+
+
+" --------------------------------
 " <rainbow parentheses>
+
+" Setup colors and exclude nertree because it cause conflict with devicons
+" with NERDTree
+let g:rainbow_conf = {
+  \    'guifgs': ['#d65d0e', '#d3869b', '#458588', '#d79921', '#8ec07c', '#cc241d'],
+  \    'separately': {
+  \       'nerdtree': 0,
+  \       'vimwiki': 0
+  \    }
+  \}
 let g:rainbow_active = 1
+" --------------------------------
+" <Mundo-tree>
 
-" --------------------------------------------------------------------------------------------------------------------------------------------------------
-
-" <ALE>
-let b:ale_linters = ["clangd"]
-map <leader>at :ALEToggle<CR>
-let g:ale_enabled = 0
-
-" --------------------------------------------------------------------------------------------------------------------------------------------------------
-
-" <vim-cool>
-let g:CoolTotalMatches = 1
-
-" --------------------------------------------------------------------------------------------------------------------------------------------------------
-
-" <coc>
-
-"Give more space for displaying messages.
-set cmdheight=2
-" Having longer updatetime (default is 4000 ms = 4 s) leads to noticeable
-" delays and poor user experience.
-set updatetime=300
-" Don't pass messages to |ins-completion-menu|.
-set shortmess+=c
-" Use K to show documentation in preview window.
-nnoremap <silent> K :call <SID>show_documentation()<CR>
-
-function! s:show_documentation()
-  if (index(['vim','help'], &filetype) >= 0)
-    execute 'h '.expand('<cword>')
-  else
-    call CocAction('doHover')
-  endif
-endfunction
-
-" Use tab for trigger completion with characters ahead and navigate.
-" NOTE: Use command ':verbose imap <tab>' to make sure tab is not mapped by
-" other plugin before putting this into your config.
-inoremap <silent><expr> <TAB>
-      \ pumvisible() ? "\<C-n>" :
-      \ <SID>check_back_space() ? "\<TAB>" :
-      \ coc#refresh()
-inoremap <expr><S-TAB> pumvisible() ? "\<C-p>" : "\<C-h>"
-
-function! s:check_back_space() abort
-  let col = col('.') - 1
-  return !col || getline('.')[col - 1]  =~# '\s'
-endfunction
-
-" Use <c-space> to trigger completion.
-inoremap <silent><expr> <c-space> coc#refresh()
-
-" Formatting selected code.
-xmap <leader>f  <Plug>(coc-format-selected)
-nmap <leader>f  <Plug>(coc-format-selected)
-
-" Symbol renaming.
-nmap <leader>rn <Plug>(coc-rename)
-
-" GoTo code navigation.
-nmap <silent> gd <Plug>(coc-definition)
-nmap <silent> gy <Plug>(coc-type-definition)
-nmap <silent> gi <Plug>(coc-implementation)
-nmap <silent> gr <Plug>(coc-references)
-
-" Use <cr> to confirm completion, `<C-g>u` means break undo chain at current
-" position. Coc only does snippet and additional edit on confirm.
-" <cr> could be remapped by other vim plugin, try `:verbose imap <CR>`.
-if exists('*complete_info')
-  inoremap <expr> <cr> complete_info()["selected"] != "-1" ? "\<C-y>" : "\<C-g>u\<CR>"
-else
-  inoremap <expr> <cr> pumvisible() ? "\<C-y>" : "\<C-g>u\<CR>"
-endif
-
-" Highlight the symbol and its references when holding the cursor.
-autocmd CursorHold * silent call CocActionAsync('highlight')
-
-" Add (Neo)Vim's native statusline support.
-" NOTE: Please see `:h coc-status` for integrations with external plugins that
-" provide custom statusline: lightline.vim, vim-airline.
-set statusline^=%{coc#status()}%{get(b:,'coc_current_function','')}
-
-" Use autocmd to force lightline update.
-autocmd User CocStatusChange,CocDiagnosticChange call lightline#update()
-
-" Lightline mods for CoC compatibility
-let g:lightline = {
-      \ 'active': {
-      \   'left': [ [ 'mode', 'paste' ],
-      \             [ 'cocstatus', 'currentfunction', 'readonly', 'filename', 'modified', 'fugitive' ] ],
-      \   'right': [ [ 'lineinfo' ],
-      \              [ 'percent' ],
-      \              [ 'linter_checking', 'linter_errors', 'linter_warnings', 'linter_infos', 'linter_ok', 'filetype', 'fileencoding'] ]
-      \ },
-      \ 'component_function': {
-      \   'filename': 'LightlineFilename',
-      \   'cocstatus': 'coc#status',
-      \   'currentfunction': 'CocCurrentFunction'
-      \ },
-      \ }
-
-function! LightlineFilename()
-  return expand('%:t') !=# '' ? @% : '[No Name]'
-endfunction
-
-function! CocCurrentFunction()
-    return get(b:, 'coc_current_function', '')
-endfunction
-
-
-let g:lightline.component_expand = {
-      \  'linter_checking': 'lightline#ale#checking',
-      \  'linter_infos': 'lightline#ale#infos',
-      \  'linter_warnings': 'lightline#ale#warnings',
-      \  'linter_errors': 'lightline#ale#errors',
-      \  'linter_ok': 'lightline#ale#ok',
-      \ }
-
-let g:lightline.component_type = {
-      \     'linter_checking': 'right',
-      \     'linter_infos': 'right',
-      \     'linter_warnings': 'warning',
-      \     'linter_errors': 'error',
-      \     'linter_ok': 'right',
-      \ }
-
-" --------------------------------------------------------------------------------------------------------------------------------------------------------
+nnoremap <leader>u :MundoToggle<CR>
+" --------------------------------
 
 " <fzf>
+
+nmap <leader>: :History:<CR>
+nmap <leader>/ :History/<CR>
 nmap <Leader>, :Buffers<CR>
-"nnoremap <Leader>og :Rg<CR>
+nmap <leader>; :BuffersDelete<CR>
 nnoremap <Leader>o :Files<CR>
+nnoremap <leader>. :HFiles<CR>
 "nnoremap <Leader>os :ProjectFiles<CR>
-nnoremap <Leader>h :History<CR>
+nnoremap <Leader>H :History<CR>
+
+" BD command to bdelete buffers
+function! s:delete_buffers(lines)
+  execute 'bdelete!' join(map(a:lines, {_, line -> split(line)[0]}))
+endfunction
+
+function! s:list_buffers()
+  redir => list
+  silent ls
+  redir END
+  return split(list, "\n")
+endfunction
+
+command! BuffersDelete call fzf#run(fzf#wrap({
+  \ 'source': s:list_buffers(),
+  \ 'sink*': { lines -> s:delete_buffers(lines) },
+  \ 'options': '--multi --reverse --bind ctrl-a:select-all+accept'
+\ }))
+
 " Previews highlight off/ona (sh = syntax highlight)
 
 " :Files
@@ -334,4 +332,55 @@ command! -bang -nargs=? -complete=dir Files call fzf#vim#files(<q-args>,{'option
 command! -bang ProjectFiles call fzf#vim#files('~/Source', {'options':['--layout=reverse', '--info=inline', '--preview', 'cat {}']}, <bang>0)
 " Projectfile preview on, sh on (kinda laggy)
 "command! -bang ProjectFiles call fzf#vim#files('~/Source', {'options': ['--layout=reverse', '--info=inline', '--preview', '~/.vim/plugged/fzf.vim/bin/preview.sh {}']}, <bang>0)
-" --------------------------------------------------------------------------------------------------------------------------------------------------------
+
+" Hidden files
+command! -bang -nargs=? -complete=dir HFiles call fzf#vim#files(<q-args>, {'source': 'find'}, <bang>0)
+
+" Floating window
+let g:fzf_layout = { 'window': { 'width': 0.9, 'height': 0.6 } }
+
+" Border style (rounded / sharp / horizontal)
+let g:fzf_layout = { 'window': { 'width': 0.9, 'height': 0.6, 'highlight': 'fzfFloatingBorder', 'border': 'rounded' } }
+hi fzfFloatingBorder guifg=#458788
+"" Todo: play with these settings
+
+let g:fzf_colors =
+\ { 'fg':      ['fg', 'fzfFg'],
+  \ 'bg':      ['bg', 'fzfBg'],
+  \ 'hl':      ['fg', 'Comment'],
+  \ 'fg+':     ['fg', 'CursorLine', 'CursorColumn', 'Normal'],
+  \ 'bg+':     ['bg', 'CursorLine', 'CursorColumn'],
+  \ 'hl+':     ['fg', 'Statement'],
+  \ 'info':    ['fg', 'PreProc'],
+  \ 'border':  ['fg', 'Ignore'],
+  \ 'prompt':  ['fg', 'Conditional'],
+  \ 'pointer': ['fg', 'Exception'],
+  \ 'marker':  ['fg', 'Keyword'],
+  \ 'spinner': ['fg', 'Label'],
+  \ 'header':  ['fg', 'Comment'] }
+
+hi fzfFg guifg=#d5c4a1
+hi fzfBg guibg=#1d2021
+
+" --------------------------------
+"<startify>
+
+map <Leader>S :Startify<CR>
+
+
+" --------------------------------
+
+" <easymotion>
+
+map <Leader> <Plug>(easymotion-prefix)
+" Use uppercase target labels and type as a lower case
+let g:EasyMotion_use_upper = 1
+let g:EasyMotion_keys = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ;'
+" JK motions: Line motions
+map <Leader>t <Plug>(easymotion-t2)
+
+map <Leader>h <Plug>(easymotion-linebackward)
+map <Leader>j <Plug>(easymotion-j)
+map <Leader>k <Plug>(easymotion-k)
+map <Leader>l <Plug>(easymotion-lineforward)
+map <Leader>s <Plug>(easymotion-s)
