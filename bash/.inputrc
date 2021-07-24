@@ -10,3 +10,6 @@ set keymap vi-insert
 # these are for vi-insert mode
 Control-o: clear-screen 
 $endif
+
+# Ignore case
+set completion-ignore-case on
