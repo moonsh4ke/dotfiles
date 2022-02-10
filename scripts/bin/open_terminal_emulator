@@ -1,8 +1,0 @@
-#!/bin/bash
-
-if pgrep -x "zsh" > /dev/null
-then
-    xdotool search --name alacritty windowactivate
-else
-    alacritty
-fi

@@ -1,8 +1,0 @@
-#!/bin/bash
-
-if pgrep -x "spotify" > /dev/null
-then
-    xdotool search --class spotify windowactivate %2
-else
-    spotify 
-fi
