@@ -23,6 +23,8 @@ Plug 'https://github.com/tpope/vim-fugitive' " Git commands
 "" GUI improvements
 Plug 'https://github.com/morhetz/gruvbox' " Colortheme
 Plug 'https://github.com/itchyny/lightline.vim' " Prettier status bar
+Plug 'akinsho/bufferline.nvim' " Buffers as tabs for IDES
+Plug 'kyazdani42/nvim-web-devicons'
 Plug 'https://github.com/mhinz/vim-startify' " Start screen
 Plug 'https://github.com/luochen1990/rainbow' " Rainbow parentheses
 Plug 'https://github.com/Yggdroot/indentLine' " Display the identation levels with pipes |
@@ -558,7 +560,7 @@ set statusline^=%{coc#status()}%{get(b:,'coc_current_function','')}
 " lua require'lspconfig'.pyright.setup{}
 "
 
-" <CHADTree>
+"" CHADTree
 
 map <Leader>t :CHADopen<CR>
 let g:chadtree_settings = {
@@ -579,9 +581,15 @@ let g:chadtree_settings = {
         \}
 \}
 
-" <Emmet>
+"" Emmet
 "let g:user_emmet_leader_key = '<M-e>'
 "
 "autocmd FileType html imap <buffer><expr> <tab> Coc_or_emme()
 
 imap <expr> <M-e> emmet#expandAbbrIntelligent("\<M-e>")
+
+"" Bufferline
+
+lua << EOF
+require("bufferline").setup{}
+EOF
