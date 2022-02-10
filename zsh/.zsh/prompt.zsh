@@ -6,12 +6,12 @@ autoload -Uz vcs_info
 +vi-git-untracked(){
 zstyle ':vcs_info:git*+set-message:*' hooks git-untracked git-st
     if [[ $(git rev-parse --is-inside-work-tree 2> /dev/null) == 'true' ]] && \
-        git status --porcelain | grep -q '^?? ' 2> /dev/null ; then
+        git status --porcelain | grep -q '^.' 2> /dev/null ; then
         # This will show the marker if there are any untracked files in repo.
         # If instead you want to show the marker only if there are untracked
         # files in $PWD, use:
         #[[ -n $(git ls-files --others --exclude-standard) ]] ; then
-        hook_com[staged]+=' u'
+        hook_com[staged]+=' U'
     fi
 }
 
@@ -46,10 +46,11 @@ function +vi-git-st() {
 }
 
 zstyle ':vcs_info:git*+set-message:*' hooks git-untracked git-st
-zstyle ':vcs_info:git:*' formats "on %F{#f34f29}%b%f%F{#ffdd30}%c%f%m"
+zstyle ':vcs_info:git:*' formats "on %F{#f34f29}%b%f%F{#ffdd30}%c%f%m "
 
 precmd() {
 
+    EXIT_STATUS=$?
     # Don't print a new line at first command.
     if [ -z $NEW_LINE_BEFORE_PROMPT ]
     then
@@ -61,20 +62,14 @@ precmd() {
 
     # As always first run the system so everything is setup correctly.
     vcs_info
-    # And then just set PS1, RPS1 and whatever you want to. This $PS1
-    # is (as with the other examples above too) just an example of a very
-    # basic single-line prompt. See "man zshmisc" for details on how to
-    # make this less readable. :-)
-    if [[ -z ${vcs_info_msg_0_} ]]; then
-    # Oh hey, nothing from vcs_info, so we got more space.
-    # Let's print a longer part of $PWD...
-    PS1="%F{#ffec94}(%m)%f %F{#328dc2}%~%f %F{#ffffff}>%f "
+    if [ $EXIT_STATUS -eq 0 ]
+    then
+        PS1="%F{#ffec94}%m%f %F{#328dc2}%~%f ${vcs_info_msg_0_}%F{#40c265}[%f%*%F{#40c265}]%f
+%F{#00ff00}>>%f "
     else
+        PS1="%F{#ffec94}%m%f %F{#328dc2}%~%f ${vcs_info_msg_0_}%F{#40c265}[%f%*%F{#40c265}]%f
+%F{#ff0000}>%f%F{#00ff00}>%f "
+    fi
     # vcs_info found something, that needs space. So a shorter $PWD
     # makes sense.
-    PS1="%F{#ffec94}(%m)%f %F{#328dc2}%~%f ${vcs_info_msg_0_} %F{#ffffff}>%f "
-    fi
 }
-
-# Rightside propmt (time)
-RPROMPT="%*"
