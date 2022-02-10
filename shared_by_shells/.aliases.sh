@@ -41,11 +41,16 @@ mcd() {
 }
 
 
-# ls aliases
-# alias ll='ls -lahp'
-# alias la='ls -Ap'
-# alias l='ls -p'
+alias ls='ls --color=always'
+alias l='ls --color=always'
+alias la='ls --color=always -A'
+alias ll='ls --color=always -lh'
+alias lal='ls --color=always -lAh'
 
+alias grep='grep --color=auto'
+alias g='grep --color=auto'
+
+alias mkdir='mkdir -pv'
 
 # Exa
 #alias l="exa --icons --group-directories-first"
