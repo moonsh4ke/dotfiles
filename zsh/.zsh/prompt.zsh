@@ -6,7 +6,7 @@ autoload -Uz vcs_info
 +vi-git-untracked(){
 zstyle ':vcs_info:git*+set-message:*' hooks git-untracked git-st
     if [[ $(git rev-parse --is-inside-work-tree 2> /dev/null) == 'true' ]] && \
-        git status --porcelain | grep -q "\w\+" 2> /dev/null ; then
+        git status --porcelain | grep -qE "^[^AM]" 2> /dev/null ; then
         # This will show the marker if there are any untracked files in repo.
         # If instead you want to show the marker only if there are untracked
         # files in $PWD, use:
