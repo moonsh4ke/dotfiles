@@ -47,8 +47,8 @@ alias la='ls --color=always -A'
 alias ll='ls --color=always -lh'
 alias lal='ls --color=always -lAh'
 
-alias grep='grep --color=auto'
-alias g='grep --color=auto'
+alias grep='grep -E --color=auto'
+alias g='grep -E --color=auto'
 
 alias mkdir='mkdir -pv'
 
