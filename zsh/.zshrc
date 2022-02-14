@@ -14,6 +14,8 @@ DISABLE_AUTO_UPDATE="true"
 
 # Use vim style line editing in zsh
 bindkey -v
+# Fix delay entering vi normal mode
+export KEYTIMEOUT=1
 
 # Search backward, like bash
 bindkey '^R' history-incremental-search-backward
