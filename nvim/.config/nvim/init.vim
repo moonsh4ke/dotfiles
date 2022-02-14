@@ -121,6 +121,10 @@ set backspace+=start " Allow erase more text than you entered durin a single ins
 set splitbelow
 set splitright
 
+"" File encondings
+set encoding=utf-8
+set fileencoding=utf-8
+
 "" Abbreviations
 ab ##s --------------------------------
 
