@@ -2,29 +2,11 @@
 autoload -U colors && colors
 autoload -Uz vcs_info
 
-# perform parameter expansion/command substitution in prompt
-setopt PROMPT_SUBST
-
-vim_ins_mode="INS"
-vim_cmd_mode="CMD"
-vim_mode=$vim_ins_mode
-
-function zle-keymap-select {
-  vim_mode="${${KEYMAP/vicmd/${vim_cmd_mode}}/(main|viins)/${vim_ins_mode}}"
-  zle reset-prompt
-}
-zle -N zle-keymap-select
-
-function zle-line-finish {
-  vim_mode=$vim_ins_mode
-}
-zle -N zle-line-finish
-
 ### git: Show marker (u) if there are untracked files in repository
 +vi-git-untracked(){
 zstyle ':vcs_info:git*+set-message:*' hooks git-untracked git-st
     if [[ $(git rev-parse --is-inside-work-tree 2> /dev/null) == 'true' ]] && \
-        git status --porcelain | grep -qE "^[^AM]" 2> /dev/null ; then
+        git status --porcelain | grep -qE "^." 2> /dev/null ; then
         # This will show the marker if there are any untracked files in repo.
         # If instead you want to show the marker only if there are untracked
         # files in $PWD, use:
