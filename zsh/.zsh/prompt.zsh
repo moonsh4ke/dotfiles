@@ -72,6 +72,4 @@ precmd() {
     fi
     # vcs_info found something, that needs space. So a shorter $PWD
     # makes sense.
-
-    RPROMPT='${vim_mode}'
 }
