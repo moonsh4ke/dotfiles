@@ -14,6 +14,8 @@ if [ -d "$HOME/.local/bin" ] ; then
     PATH="$HOME/.local/bin:$PATH"
 fi
 
+[ -d "$HOME/.config/nvim/plugged/fzf/bin" ] && PATH="$HOME/.config/nvim/plugged/fzf/bin:$PATH"
+
 if [ -x /bin/nvim ]
 then
     export EDITOR=nvim
@@ -22,3 +24,6 @@ elif [ -x /bin/vim ]
 then
     export EDITOR=vim
 fi
+
+# Enable mouse scroll in tmux less/man
+export LESS='--mouse --wheel-lines=5'
