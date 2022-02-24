@@ -32,3 +32,6 @@ setopt extendedhistory
 autoload -Uz compinit && compinit
 zstyle ':completion:*' matcher-list 'm:{a-z}={A-Za-z}'
 setopt MENU_COMPLETE
+
+# Fzf auto-completion
+[[ $- == *i* ]] && source "$HOME/.fzf/completion.zsh" 2> /dev/null

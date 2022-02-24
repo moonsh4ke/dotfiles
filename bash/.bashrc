@@ -97,3 +97,5 @@ if ! shopt -oq posix; then
 fi
 
 [ -f $HOME/.aliases.sh ] && source $HOME/.aliases.sh
+
+[ -f ~/.fzf/completion.bash ] && source ~/.fzf/completion.bash
