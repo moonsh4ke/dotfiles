@@ -25,5 +25,4 @@ then
     export EDITOR=vim
 fi
 
-# Enable mouse scroll in tmux less/man
-export LESS='--mouse --wheel-lines=5'
+[ -f "$HOME/.fzf/fzf_defaults.sh" ] && source "$HOME/.fzf/fzf_defaults.sh"
