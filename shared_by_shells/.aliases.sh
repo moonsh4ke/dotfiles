@@ -40,12 +40,21 @@ mcd() {
     mkdir "${1}" && cd "${1}"
 }
 
+# Display disk usage of current directory (non recursive)
+duu() {
+    (du -hd 1 "${1}" 2> /dev/null || du -hd 1 .) | sort -h
+}
 
-alias ls='ls --color=always'
-alias l='ls --color=always'
-alias la='ls --color=always -A'
-alias ll='ls --color=always -lh'
-alias lal='ls --color=always -lAh'
+# Open files using xdg-open + fzf
+
+#xd alias open='fzf | sed "s/\(^.*$\)/\"\1\"/" | xargs xdg-open &> /dev/null'
+alias open='xdg-open "$(fzf)" &> /dev/null'
+
+alias ls='ls --color=auto'
+alias l='ls --color=auto'
+alias la='ls --color=auto -A'
+alias ll='ls --color=auto -lh'
+alias lal='ls --color=auto -lAh'
 
 alias grep='grep -E --color=auto'
 alias g='grep -E --color=auto'
@@ -115,7 +124,14 @@ alias weather="curl wttr.in"
 # Use btop as t if installed
 if [ -x /bin/btop ];
 then
-    alias t="btop"
+    alias tp="btop"
 else
-    alias t="htop"
+    alias tp="htop"
 fi
+
+# Improved xdg-open
+o() {
+    xdg-open "${1}" &> /dev/null
+}
+
+
