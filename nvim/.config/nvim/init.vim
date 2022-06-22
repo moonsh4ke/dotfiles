@@ -14,7 +14,10 @@ Plug 'neoclide/coc.nvim', {'branch': 'release'}
 
 "" File explorer
 Plug 'ms-jpq/chadtree', {'branch': 'chad', 'do': 'python3 -m chadtree deps'}
+Plug 'tiagofumo/vim-nerdtree-syntax-highlight'
 " Plug 'https://github.com/preservim/nerdtree'
+Plug 'kyazdani42/nvim-tree.lua'
+Plug 'kyazdani42/nvim-web-devicons'
 
 "" Git
 Plug 'lewis6991/gitsigns.nvim'
@@ -24,10 +27,15 @@ Plug 'https://github.com/tpope/vim-fugitive' " Git commands
 Plug 'https://github.com/morhetz/gruvbox' " Colortheme
 Plug 'https://github.com/itchyny/lightline.vim' " Prettier status bar
 Plug 'akinsho/bufferline.nvim' " Buffers as tabs for IDES
-Plug 'kyazdani42/nvim-web-devicons'
 Plug 'https://github.com/mhinz/vim-startify' " Start screen
 Plug 'https://github.com/luochen1990/rainbow' " Rainbow parentheses
-Plug 'https://github.com/Yggdroot/indentLine' " Display the identation levels with pipes |
+
+"Plug 'https://github.com/Yggdroot/indentLine' " Display the identation levels with pipes |
+Plug 'lukas-reineke/indent-blankline.nvim'
+
+" Syntax hl
+Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
+
 Plug 'https://github.com/machakann/vim-highlightedyank'
 
 "" Tmux intregation
@@ -591,7 +599,8 @@ let g:chadtree_settings = {
     \"keymap":
         \{
             \"toggle_version_control": ["9"]
-        \}
+        \},
+    \"theme.text_colour_set": "nerdtree_syntax_dark"
 \}
 
 "" Emmet
@@ -613,4 +622,7 @@ lua require('gitsigns').setup()
 "" Telescope
 nmap <leader>. <cmd>Telescope find_files theme=dropdown<cr>
 nmap <leader>, <cmd>Telescope buffers theme=dropdown    <cr>
-    nmap <leader>: <cmd>Telescope builtin theme=dropdown  <cr>
+nmap <leader>: <cmd>Telescope builtin theme=dropdown  <cr>
+
+"" nvim-tree-lua
+lua require("nvim-tree").setup()
