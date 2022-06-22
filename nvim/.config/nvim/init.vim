@@ -17,7 +17,7 @@ Plug 'ms-jpq/chadtree', {'branch': 'chad', 'do': 'python3 -m chadtree deps'}
 " Plug 'https://github.com/preservim/nerdtree'
 
 "" Git
-Plug 'https://github.com/airblade/vim-gitgutter' " Git sign column
+Plug 'lewis6991/gitsigns.nvim'
 Plug 'https://github.com/tpope/vim-fugitive' " Git commands
 
 "" GUI improvements
@@ -34,15 +34,22 @@ Plug 'https://github.com/machakann/vim-highlightedyank'
 Plug 'https://github.com/tmux-plugins/vim-tmux' " Syntax hl, commentary, documentation, :make
 Plug 'https://github.com/christoomey/vim-tmux-navigator' " vim window movement integration in tmux
 
+" Fuzzy finders
+" Plug 'junegunn/fzf', { 'do': { -> fzf#install() } } " Fuzzy finder
+" Plug 'junegunn/fzf.vim'
+Plug 'nvim-lua/plenary.nvim'
+Plug 'nvim-telescope/telescope.nvim'
+
 "" Misc 
 Plug 'https://github.com/simnalamburt/vim-mundo' " Better undo tree
 Plug 'https://github.com/easymotion/vim-easymotion' " Fastest motion management
 Plug 'https://github.com/tpope/vim-surround' " Surround functionality
 Plug 'https://github.com/romainl/vim-cool' " disable highlight search automatically when you are done searching
-Plug 'junegunn/fzf', { 'do': { -> fzf#install() } } " Fuzzy finder
-Plug 'junegunn/fzf.vim'
+
+
 Plug 'https://github.com/tpope/vim-obsession' " Better session management
 Plug 'mattn/emmet-vim' " Improve HTML workflow
+Plug 'https://github.com/tpope/vim-commentary'
 call plug#end()
 
 "  -------
@@ -89,11 +96,11 @@ set showmatch           " highlight matching [{()}]
 
 "" Backup 
 " if has('nvim')
-" 	set backup " Enable backup files
-" 	set writebackup " Backup after :w, so if :w fails doesn't lose pre :w file
-" 
-" 	set backupdir=~/.config/nvim/backups/,~/.config/nvim/backups/backups2/
-" 	set backupext=.bak " Backup extension
+"     echo 'hello world'
+"  	set backup " Enable backup files
+"  	set writebackup " Backup after :w, so if :w fails doesn't lose pre :w file
+"  	set backupdir=~/.config/nvim/backups/
+"  	set backupext=.bak " Backup extension
 " endif
 
 "" Swapfiles
@@ -131,6 +138,8 @@ ab ##s --------------------------------
 ""  Folds
 " set foldmethod=syntax
 " autocmd FileType python set foldmethod=indent
+
+set signcolumn=yes " Don't override numbers with git signs or LSP errors
 
 "  ------------ 
 " |Autocommands|
@@ -290,14 +299,14 @@ nnoremap <leader>u :MundoToggle<CR>
 
 "" fzf
 
-nmap <leader>: :History:<CR>
-nmap <leader>/ :History/<CR>
-nmap <Leader>, :Buffers<CR>
-nmap <leader>; :BuffersDelete<CR>
-nnoremap <Leader>o :Files<CR>
-nnoremap <leader>. :HFiles<CR>
-"nnoremap <Leader>os :ProjectFiles<CR>
-nnoremap <Leader>H :History<CR>
+"nmap <leader>: :History:<CR>
+"nmap <leader>/ :History/<CR>
+"nmap <Leader>, :Buffers<CR>
+"nmap <leader>; :BuffersDelete<CR>
+"nnoremap <Leader>o :Files<CR>
+"nnoremap <leader>. :HFiles<CR>
+""nnoremap <Leader>os :ProjectFiles<CR>
+"nnoremap <Leader>H :History<CR>
 
 """ BD command to bdelete buffers
 function! s:delete_buffers(lines)
@@ -414,12 +423,12 @@ set updatetime=300
 set shortmess+=c
 
 """ Always show the signcolumn, otherwise it would shift the text each time diagnostics appear/become resolved.
-if has("nvim-0.5.0") || has("patch-8.1.1564")
-  " Recently vim can merge signcolumn and number column into one
-  set signcolumn=number
-else
-  set signcolumn=yes
-endif
+" if has("nvim-0.5.0") || has("patch-8.1.1564")
+"   " Recently vim can merge signcolumn and number column into one
+"   set signcolumn=number
+" else
+"   set signcolumn=yes
+" endif
 
 """ Use tab for trigger completion with characters ahead and navigate.
 """ NOTE: Use command ':verbose imap <tab>' to make sure tab is not mapped by
@@ -597,3 +606,11 @@ imap <expr> <M-e> emmet#expandAbbrIntelligent("\<M-e>")
 lua << EOF
 require("bufferline").setup{}
 EOF
+
+"" Gitsign
+lua require('gitsigns').setup()
+
+"" Telescope
+nmap <leader>. <cmd>Telescope find_files theme=dropdown<cr>
+nmap <leader>, <cmd>Telescope buffers theme=dropdown    <cr>
+    nmap <leader>: <cmd>Telescope builtin theme=dropdown  <cr>
