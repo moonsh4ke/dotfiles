@@ -12,4 +12,3 @@ vim.cmd([[
         \ { 'type': 'bookmarks', 'header': ['   Bookmarks']      },
         \]
 ]])
-

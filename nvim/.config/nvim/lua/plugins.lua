@@ -1,14 +1,19 @@
-vim.cmd[[packadd packer.nvim]]
+local fn = vim.fn
+local install_path = fn.stdpath('data')..'/site/pack/packer/start/packer.nvim'
+if fn.empty(fn.glob(install_path)) > 0 then
+  packer_bootstrap = fn.system({'git', 'clone', '--depth', '1', 'https://github.com/wbthomason/packer.nvim', install_path})
+  vim.cmd [[packadd packer.nvim]]
+end
 
 -- Run PackerCompile whenever this file is changed
 vim.cmd([[
   augroup packer_user_config
     autocmd!
-    autocmd BufWritePost packer.lua source <afile> | PackerCompile
+    autocmd BufWritePost plugins.lua source <afile> | PackerCompile
   augroup end
 ]])
 
-return require('packer').startup(function(use)
+return require('packer').startup({function(use)
     use 'wbthomason/packer.nvim' -- Package manager
     use {
             'morhetz/gruvbox', -- Colortheme
@@ -69,4 +74,26 @@ return require('packer').startup(function(use)
             requires = { {'nvim-lua/plenary.nvim'} },
             config = function() require('config.telescope') end
     }
-end)
+    use {
+        'neovim/nvim-lspconfig',
+        config = function() require('config.lspconfig') end
+    }
+    use {
+        'williamboman/mason.nvim',
+        config = function() require("mason").setup() end
+    }
+    use {
+        'williamboman/mason-lspconfig.nvim',
+        config = function() require("mason-lspconfig").setup() end
+    }
+  if packer_bootstrap then
+    require('packer').sync()
+  end
+end,
+config = {
+  display = {
+    open_fn = function()
+      return require('packer.util').float({ border = 'single' })
+    end
+  }
+}})

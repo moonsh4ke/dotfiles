@@ -54,9 +54,11 @@ map('n', '<C-h>', '<C-w>h', {noremap = true})
 map('n', '<C-k>', '<C-w>k', {noremap = true})
 map('n', '<C-l>', '<C-w>l', {noremap = true})
 
--- Visual mode tab indent
-map('v', '<Tab>', '>', {noremap = true})
-map('v', '<S-Tab>', '<', {noremap = true})
+-- Improves for tab indent in normal and visual mode
+map('v', '<Tab>', '>gv4l', {noremap = true})
+map('v', '<S-Tab>', '<gv4h', {noremap = true})
+map('n', '<Tab>', 'V>4l', {noremap = true})
+map('n', '<S-Tab>', 'V<4h', {noremap = true})
 
 -- "System" clipboard quickies
 map('', '<Leader>y', '"+y', {})
