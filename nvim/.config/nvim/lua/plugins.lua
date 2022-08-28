@@ -43,7 +43,7 @@ return require('packer').startup({function(use)
         'norcalli/nvim-colorizer.lua',
         config = function() require'colorizer'.setup() end
     }
-    use 'MaxMEllon/vim-jsx-pretty'
+    -- use 'MaxMEllon/vim-jsx-pretty'
     use 'tmux-plugins/vim-tmux'
     use 'christoomey/vim-tmux-navigator'
     use 'romainl/vim-cool'
@@ -66,8 +66,11 @@ return require('packer').startup({function(use)
     -- use 'JoosepAlviste/nvim-ts-context-commentstring'
     use {
         'nvim-treesitter/nvim-treesitter',
-        run = function() require('config.treesitter') end,
+        run = function() require('nvim-treesitter.install').update({ with_sync = true }) end,
+        config = function() require('config.treesitter') end,
+        -- config = function() vim.cmd[[echo "jello"]] end
     }
+    use 'nvim-treesitter/playground'
     use {
             'nvim-telescope/telescope.nvim', tag = '0.1.0',
             -- or                            , branch = '0.1.x',
@@ -76,7 +79,7 @@ return require('packer').startup({function(use)
     }
     use {
         'neovim/nvim-lspconfig',
-        config = function() require('config.lspconfig') end
+        --config = function() require('config.lspconfig') end
     }
     use {
         'williamboman/mason.nvim',
@@ -86,6 +89,30 @@ return require('packer').startup({function(use)
         'williamboman/mason-lspconfig.nvim',
         config = function() require("mason-lspconfig").setup() end
     }
+
+    -- Completion
+    use {
+            'hrsh7th/cmp-nvim-lsp',
+            'hrsh7th/cmp-buffer',
+            'hrsh7th/cmp-path',
+            'hrsh7th/cmp-cmdline',
+            'hrsh7th/nvim-cmp',
+            'hrsh7th/cmp-vsnip',
+            'hrsh7th/vim-vsnip',
+
+            'L3MON4D3/LuaSnip',
+            'saadparwaiz1/cmp_luasnip', 
+    }
+
+    use {
+        'kyazdani42/nvim-tree.lua',
+        requires = {
+            'kyazdani42/nvim-web-devicons', -- optional, for file icons
+        },
+        tag = 'nightly', -- optional, updated every week. (see issue #1193)
+        config = function() require('config.nvim-tree') end
+    }
+
   if packer_bootstrap then
     require('packer').sync()
   end

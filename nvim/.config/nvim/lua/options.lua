@@ -1,7 +1,6 @@
 local set = vim.opt
 
 set.undofile = true
-set.undodir = '~/.config/nvim/undodir/'
 set.undolevels=5000
 set.number = true
 set.relativenumber = true
