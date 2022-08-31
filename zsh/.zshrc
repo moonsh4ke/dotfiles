@@ -14,6 +14,7 @@ DISABLE_AUTO_UPDATE="true"
 
 # Use vim style line editing in zsh
 bindkey -v
+
 # Fix delay entering vi normal mode
 export KEYTIMEOUT=1
 
@@ -34,9 +35,9 @@ zstyle ':completion:*' matcher-list 'm:{a-z}={A-Za-z}'
 setopt MENU_COMPLETE
 
 # Fzf auto-completion
-[[ $- == *i* ]] && source "$HOME/.fzf/completion.zsh" 2> /dev/null
+# [[ $- == *i* ]] && source "$HOME/.fzf/completion.zsh" 2> /dev/null
 
 # https://unix.stackexchange.com/questions/43601/how-can-i-set-my-default-shell-to-start-up-tmux
-if command -v tmux &> /dev/null && [ -n "$PS1" ] && [[ ! "$TERM" =~ screen ]] && [[ ! "$TERM" =~ tmux ]] && [ -z "$TMUX" ]; then
-  exec tmux
-fi
+# if command -v tmux &> /dev/null && [ -n "$PS1" ] && [[ ! "$TERM" =~ screen ]] && [[ ! "$TERM" =~ tmux ]] && [ -z "$TMUX" ]; then
+#   exec tmux
+# fi

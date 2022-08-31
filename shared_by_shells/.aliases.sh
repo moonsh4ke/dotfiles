@@ -1,3 +1,5 @@
+# Stack management
+[ $(command -v pushd) ] && alias pu='pushd'; alias po='popd'
 
 # Quick access
 alias e='$EDITOR'
@@ -79,8 +81,8 @@ alias rm='rm -Iv'
 #alias o='xdg-open'
 #alias open='xdg-open'
 
-#alias df='df -h'
-#alias du='du -h'
+alias df='df -h'
+alias du='du -h'
 #alias dul='du -sh $(ls -p) | sort -hr'
 #alias dula='du -sh $(ls -Ap) | sort -hr'
 

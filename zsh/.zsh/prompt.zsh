@@ -45,6 +45,7 @@ function +vi-git-st() {
     fi
 }
 
+
 zstyle ':vcs_info:git*+set-message:*' hooks git-untracked git-st
 zstyle ':vcs_info:git:*' formats "on %F{#f34f29}%b%f%F{#ffdd30}%c%f%m "
 
@@ -60,16 +61,44 @@ precmd() {
         print ""
     fi
 
-    # As always first run the system so everything is setup correctly.
-    vcs_info
+    ## Getting stack directories
+    # Todo: find a POSIX equivalent
+    # if [ $(command -v pushd) ]
+    # then
+    #     local arr=($(pushd +0))
+    #     if [ ${#arr[@]} -gt 1 ]
+    #     then
+    #         stack_dirs="
+# %F{#fa8a28}S [%f ${arr[*]:1} %F{#fa8a28}]%f"
+    #     else
+    #         stack_dirs=""
+    #     fi
+    # fi
+
+    suspended_jobs=""
+    [ -n "$(jobs | grep -v "nohup")" ] && suspended_jobs="%F{#ab62f5}*%f "
+
+    # Exit status (last command) colored prompt
     if [ $EXIT_STATUS -eq 0 ]
     then
-        PS1="%F{#ffec94}%m%f %F{#328dc2}%~%f ${vcs_info_msg_0_}%F{#40c265}[%f%*%F{#40c265}]%f
-%F{#00ff00}>>%f "
+        status_color="%F{#00ff00}>>%f"
     else
-        PS1="%F{#ffec94}%m%f %F{#328dc2}%~%f ${vcs_info_msg_0_}%F{#40c265}[%f%*%F{#40c265}]%f
-%F{#ff0000}>%f%F{#00ff00}>%f "
+        status_color="%F{#ff0000}>%f%F{#00ff00}>%f"
     fi
-    # vcs_info found something, that needs space. So a shorter $PWD
-    # makes sense.
+
+    # As always first run the system so everything is setup correctly.
+    vcs_info
+
+    PS1="%F{#ffec94}%n@%m%f %F{#328dc2}%~%f ${vcs_info_msg_0_}%F{#40c265}[%f%*%F{#40c265}]%f $stack_dirs
+$suspended_jobs$status_color "
+
+    # if [ $EXIT_STATUS -eq 0 ]
+    # then
+    #     PS1="%F{#ffec94}%m%f %F{#328dc2}%~%f ${vcs_info_msg_0_}%F{#40c265}[%f%*%F{#40c265}]%f
+# %F{#00ff00}>>%f "
+    # else
+    #     PS1="%F{#ffec94}%m%f %F{#328dc2}%~%f ${vcs_info_msg_0_}%F{#40c265}[%f%*%F{#40c265}]%f
+# %F{#ff0000}>%f%F{#00ff00}>%f "
+    # fi
+    
 }
