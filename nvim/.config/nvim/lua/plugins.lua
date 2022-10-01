@@ -43,7 +43,12 @@ return require('packer').startup({function(use)
         'norcalli/nvim-colorizer.lua',
         config = function() require'colorizer'.setup() end
     }
-    -- use 'MaxMEllon/vim-jsx-pretty'
+    use 'MaxMEllon/vim-jsx-pretty'
+    use {
+            'mattn/emmet-vim',
+            config = function() vim.cmd[[let g:user_emmet_expandabbr_key = '<M-e>']] end
+        }
+
     use 'tmux-plugins/vim-tmux'
     use 'christoomey/vim-tmux-navigator'
     use 'romainl/vim-cool'
@@ -111,6 +116,22 @@ return require('packer').startup({function(use)
         },
         tag = 'nightly', -- optional, updated every week. (see issue #1193)
         config = function() require('config.nvim-tree') end
+    }
+
+    -- Debugging
+    use {
+            "mfussenegger/nvim-dap",
+            config = function() require('config.dap') end
+        }
+
+    use { 
+            "rcarriga/nvim-dap-ui",
+            config = function() require('config.dapui') end
+        }
+
+    use {
+        'mfussenegger/nvim-dap-python',
+        config = function() require('dap-python').setup('~/.virtualenvs/debugpy/bin/python') end
     }
 
   if packer_bootstrap then

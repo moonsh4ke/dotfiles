@@ -3,11 +3,11 @@
 require'nvim-treesitter.configs'.setup {
     highlight = {
         enable = true,
-        -- disable = {"javascript", "markdown"}
+        disable = {"javascript", "markdown"}
     },
     indent = {
         enable = true,
-        -- disable = {"javascript"}
+        disable = {"javascript"}
     },
     -- context_commentstring = {
     --     enable = true,
