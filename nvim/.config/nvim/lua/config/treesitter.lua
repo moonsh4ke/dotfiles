@@ -1,15 +1,19 @@
 -- Treesitter
 
 require'nvim-treesitter.configs'.setup {
-    highlight = {
-        enable = true,
-        disable = {"javascript", "markdown"}
-    },
-    indent = {
-        enable = true,
-        disable = {"javascript"}
-    },
-    -- context_commentstring = {
+  highlight = {
+    enable = true,
+    disable = {"javascript", "markdown"}
+  },
+  indent = {
+    enable = true,
+    disable = {"javascript"}
+  },
+  autotag = {
+    enable = true,
+    map_cr = true
+  },
+  -- context_commentstring = {
     --     enable = true,
     --     config = {
     --         javascript = {
