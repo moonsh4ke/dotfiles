@@ -16,12 +16,17 @@ fi
 
 [ -d "$HOME/.config/nvim/plugged/fzf/bin" ] && PATH="$HOME/.config/nvim/plugged/fzf/bin:$PATH"
 
-if [ -x /bin/nvim ]
+# If nvim is installed and version is greater than v0.7 then use nvim as editor
+# otherwhise use vim
+if test -x /bin/nvim && \
+    printf "%s\n%s\n" "0.7" "$(nvim -v | head -n 1 | sed "s/[A-Za-z ]//g")" | \
+    sort --check=quiet --version-sort;
 then
     export EDITOR=nvim
     export VISUAL=nvim
 elif [ -x /bin/vim ]
 then
+    echo "im going to use vim as editor"
     export EDITOR=vim
 fi
 
