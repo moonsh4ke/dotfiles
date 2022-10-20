@@ -3,11 +3,11 @@
 require'nvim-treesitter.configs'.setup {
   highlight = {
     enable = true,
-    disable = {"javascript", "markdown"}
+    additional_vim_regex_highlighting=true,
+   -- disable = {"javascript", "markdown"}
   },
   indent = {
-    enable = true,
-    disable = {"javascript"}
+    enable = false,
   },
   autotag = {
     enable = true,

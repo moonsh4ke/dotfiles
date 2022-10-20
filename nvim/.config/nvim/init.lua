@@ -3,4 +3,4 @@ require('keymaps') -- Keymaps
 require('autocmds') -- Autcommands
 require('plugins') -- Plugins
 
-require('config.lspconfig')
+-- require('config.lspconfig')

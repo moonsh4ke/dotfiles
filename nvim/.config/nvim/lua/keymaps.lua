@@ -1,3 +1,5 @@
+-- Non-plugin mappings
+
 local map = vim.api.nvim_set_keymap
 
 vim.cmd[[let mapleader=" "]]

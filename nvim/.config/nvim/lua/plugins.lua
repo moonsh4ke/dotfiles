@@ -88,15 +88,16 @@ return require('packer').startup({function(use)
   }
   use 'nvim-treesitter/playground'
   use {
-          'nvim-telescope/telescope.nvim', tag = '0.1.0',
-          -- or                            , branch = '0.1.x',
-          requires = { {'nvim-lua/plenary.nvim'} },
-          config = function() require('config.telescope') end
+        'nvim-telescope/telescope.nvim', tag = '0.1.0',
+        -- or                            , branch = '0.1.x',
+        requires = { {'nvim-lua/plenary.nvim'} },
+        config = function() require('config.telescope') end
   }
   use {
       'neovim/nvim-lspconfig',
-      --config = function() require('config.lspconfig') end
+      config = function() require('config.lspconfig') end
   }
+
   use {
       'williamboman/mason.nvim',
       config = function() require("mason").setup() end
@@ -115,7 +116,6 @@ return require('packer').startup({function(use)
           'hrsh7th/nvim-cmp',
           'hrsh7th/cmp-vsnip',
           'hrsh7th/vim-vsnip',
-
           'L3MON4D3/LuaSnip',
           'saadparwaiz1/cmp_luasnip', 
   }

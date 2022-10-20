@@ -1,3 +1,5 @@
+-- Setters
+
 local set = vim.opt
 
 set.undofile = true
