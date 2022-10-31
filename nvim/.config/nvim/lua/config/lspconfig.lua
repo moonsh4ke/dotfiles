@@ -35,14 +35,26 @@ end
 
 local capabilities = require("config.completion")
 
-require('lspconfig')['pyright'].setup{
+require'lspconfig'.jedi_language_server.setup{
   on_attach = on_attach,
   capabilities = capabilities,
   flags = lsp_flags
 }
 
+-- require('lspconfig')['pyright'].setup{
+--   on_attach = on_attach,
+--   capabilities = capabilities,
+--   flags = lsp_flags
+-- }
+
 require('lspconfig')['tsserver'].setup{
   on_attach = on_attach,
+  capabilities = capabilities,
+  flags = lsp_flags
+}
+
+require'lspconfig'.cssls.setup{
+	on_attach = on_attach,
   capabilities = capabilities,
   flags = lsp_flags
 }
@@ -65,7 +77,7 @@ require'lspconfig'.sumneko_lua.setup {
       },
       diagnostics = {
         -- Get the language server to recognize the `vim` global
-        globals = {'vim'},
+        globals = {'vim', 'awesome', 'client', 'root'},
       },
       workspace = {
         -- Make the server aware of Neovim runtime files
