@@ -7,7 +7,6 @@ set.undolevels=5000
 set.number = true
 set.relativenumber = true
 set.mouse = 'a'
-set.scrolloff = 12
 set.whichwrap = 'h,l'
 set.ignorecase = true
 set.smartcase = true
