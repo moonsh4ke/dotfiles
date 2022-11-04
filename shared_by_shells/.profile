@@ -26,7 +26,6 @@ then
     export VISUAL=nvim
 elif [ -x /bin/vim ]
 then
-    echo "im going to use vim as editor"
     export EDITOR=vim
 fi
 
