@@ -19,3 +19,4 @@ set.wildignore = '*.png,*.jpg,*.gif'
 set.splitbelow = true
 set.splitright = true
 set.termguicolors = true
+set.list = true
