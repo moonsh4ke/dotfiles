@@ -23,6 +23,14 @@ return require('packer').startup({function(use)
   	config = function () require('config.colorscheme') end,
   }
 
+	use 'https://github.com/Shatur/neovim-ayu'
+	use 'https://github.com/Mofiqul/vscode.nvim'
+	use 'https://github.com/rebelot/kanagawa.nvim'
+	use 'https://github.com/EdenEast/nightfox.nvim'
+	use 'shaunsingh/nord.nvim'
+	use 'projekt0n/github-nvim-theme'
+	-- habamax
+
   -- Git signs in the side panel
   use {
   	'lewis6991/gitsigns.nvim',
@@ -35,7 +43,7 @@ return require('packer').startup({function(use)
   -- Status line
   use {
   	'nvim-lualine/lualine.nvim',
-  	config = function() require('lualine').setup({ options = { theme = 'gruvbox-material' } }) end
+  	config = function() require('config.lualine') end
   }
 
 
@@ -55,7 +63,7 @@ return require('packer').startup({function(use)
   use 'kyazdani42/nvim-web-devicons'
 
   -- Display identation levels like modern editor
-  use 'lukas-reineke/indent-blankline.nvim'
+  -- use 'lukas-reineke/indent-blankline.nvim'
 
   -- Visual help for colors, for example: #558867
   use {
