@@ -48,10 +48,10 @@ return require('packer').startup({function(use)
 
 
   -- Buffer bar like modern editors display files being edited
-  use {
-  	'akinsho/bufferline.nvim',
-  	config = function() require("bufferline").setup{} end
-  }
+  -- use {
+  -- 	'akinsho/bufferline.nvim',
+  -- 	config = function() require("bufferline").setup{} end
+  -- }
 
   -- Start screen (recent files, bookmarks, etc)
   use {
@@ -72,7 +72,7 @@ return require('packer').startup({function(use)
   }
 
   -- Indentation & syntax hl for react files
-  use 'MaxMEllon/vim-jsx-pretty'
+  -- use 'MaxMEllon/vim-jsx-pretty'
   use {
   	'mattn/emmet-vim',
   	config = function() vim.cmd[[let g:user_emmet_expandabbr_key = '<M-e>']] end
@@ -110,11 +110,14 @@ return require('packer').startup({function(use)
     'windwp/nvim-ts-autotag',
   }
 
+	-- gpg files
+	use {
+		'https://github.com/jamessan/vim-gnupg',
+		config = function() vim.cmd"let g:GPGPreferSymmetric=1" end
+	}
+
   -- f with steroids
   use 'ggandor/lightspeed.nvim'
-
-  -- Highlight copied text
-  use 'machakann/vim-highlightedyank'
 
   -- Browser + markdown file integration
   use{
@@ -133,7 +136,7 @@ return require('packer').startup({function(use)
   	-- config = function() vim.cmd[[echo "jello"]] end
   }
 
-  -- Debug treesitter his parse tree
+  -- Debug treesitter
   use 'nvim-treesitter/playground'
 
   -- Fuzzy finder
@@ -204,10 +207,10 @@ return require('packer').startup({function(use)
   }
 
   -- Argument suggestions in functions based in lsp
-  use {
-    'ray-x/lsp_signature.nvim',
-    config = function() require "lsp_signature".setup() end
-  }
+  -- use {
+  --   'ray-x/lsp_signature.nvim',
+  --   config = function() require "config.lsp_signature" end
+  -- }
 
   if packer_bootstrap then
     require('packer').sync()

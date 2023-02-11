@@ -2,7 +2,12 @@
 
 local map = vim.api.nvim_set_keymap
 
+vim.keymap.set('i', '<C-s>', vim.lsp.buf.signature_help)
+
 vim.cmd[[let mapleader=" "]]
+
+-- Quick date (NOW!)
+map('n', '<Leader>N', 'i=strftime("%a %d %b %Y %H:%M")<CR>', {})
 
 -- Better horizontal movement
 map('', 'H', '^', {})
@@ -14,12 +19,6 @@ map('n', 'k', 'gk', {noremap = true})
 
 -- More intuitive Enter behavior
 map('n', '<CR>', 'o<Esc>', {noremap = true})
-
--- Window mappings
-map('n', '<C-j>', '<C-w>j', {noremap = true})
-map('n', '<C-h>', '<C-w>h', {noremap = true})
-map('n', '<C-k>', '<C-w>k', {noremap = true})
-map('n', '<C-l>', '<C-w>l', {noremap = true})
 
 -- "System" clipboard quickies
 map('', '<Leader>y', '"+y', {})

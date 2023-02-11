@@ -37,3 +37,25 @@ autocmd(
 	    command = 'nmap <buffer> <CR> <CR>'
     }
 )
+
+
+autocmd(
+	{'TextYankPost'},
+	{
+		pattern = {'*'},
+		callback = function() vim.highlight.on_yank({timeout="500"}) end
+	}
+)
+
+-- Buffer listed help files
+-- autocmd(
+-- 	{'FileType'},
+-- 	{
+-- 		pattern = {"help"},
+-- 		command = "set bl"
+-- 	}
+-- )
+
+-- vim.cmd[[
+-- autocmd FileType help echo "hello world from help"
+-- ]]

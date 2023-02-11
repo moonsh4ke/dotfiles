@@ -90,3 +90,10 @@ require'lspconfig'.sumneko_lua.setup {
     },
   },
 }
+
+
+require'lspconfig'.clangd.setup{
+  on_attach = on_attach,
+  capabilities = capabilities,
+  flags = lsp_flags
+}
