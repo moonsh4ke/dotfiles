@@ -3,6 +3,14 @@
 local autocmd = vim.api.nvim_create_autocmd
 
 autocmd(
+	{'BufEnter'},
+	{
+		pattern = {'*.ejs'},
+		command = 'set filetype=html'
+	}
+)
+
+autocmd(
 	{'BufReadPost'},
 	{
 	    pattern = {'*'},
