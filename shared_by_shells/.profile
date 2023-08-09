@@ -30,3 +30,6 @@ then
 fi
 
 [ -f "$HOME/.fzf/fzf_defaults.sh" ] && source "$HOME/.fzf/fzf_defaults.sh"
+
+GPG_TTY=`tty`
+export GPG_TTY
