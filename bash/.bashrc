@@ -99,3 +99,5 @@ fi
 [ -f $HOME/.aliases.sh ] && source $HOME/.aliases.sh
 
 [ -f ~/.fzf/completion.bash ] && source ~/.fzf/completion.bash
+
+[ -f ~/.fzf.bash ] && source ~/.fzf.bash
