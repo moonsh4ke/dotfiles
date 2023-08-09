@@ -72,7 +72,8 @@ return require('packer').startup({function(use)
   }
 
   -- Indentation & syntax hl for react files
-  -- use 'MaxMEllon/vim-jsx-pretty'
+  use 'MaxMEllon/vim-jsx-pretty'
+
   use {
   	'mattn/emmet-vim',
   	config = function() vim.cmd[[let g:user_emmet_expandabbr_key = '<M-e>']] end
