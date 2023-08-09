@@ -2,56 +2,72 @@
 
 local autocmd = vim.api.nvim_create_autocmd
 
+
+-- autocmd(
+-- 	{'Filetype'},
+-- 	{
+-- 		pattern = {'less', 'markdown.mdx', 'css', 'html', 'scss', 'markdown', 'handlebars', 'vue', 'yaml', 'typescriptreact', 'javascriptreact', 'typescript', 'graphql', 'javascript', 'json', 'jsonc'},
+-- 		callback = function() autocmd(
+-- 			{'BufWrite'},
+-- 			{
+-- 				pattern = {'*'},
+-- 				callback = function() vim.lsp.buf.format() end
+-- 			}
+
+-- 		) end
+-- 	}
+-- )
+
 autocmd(
-	{'BufEnter'},
+	{ 'BufEnter' },
 	{
-		pattern = {'*.ejs'},
+		pattern = { '*.ejs' },
 		command = 'set filetype=html'
 	}
 )
 
 autocmd(
-	{'BufReadPost'},
+	{ 'BufReadPost' },
 	{
-	    pattern = {'*'},
-	    command = 'if line("\'\\"") > 0 && line("\'\\"") <= line("$") | exe "normal! g`\\"" | endif'
-    }
+		pattern = { '*' },
+		command = 'if line("\'\\"") > 0 && line("\'\\"") <= line("$") | exe "normal! g`\\"" | endif'
+	}
 )
 
 vim.api.nvim_create_augroup('CursorLineOnlyInActiveWindow', {})
 
 autocmd(
-	{'VimEnter','WinEnter','BufWinEnter'},
+	{ 'VimEnter', 'WinEnter', 'BufWinEnter' },
 	{
-	    pattern = {'*'},
-	    command = 'setlocal cursorline',
-        group = 'CursorLineOnlyInActiveWindow'
-    }
+		pattern = { '*' },
+		command = 'setlocal cursorline',
+		group = 'CursorLineOnlyInActiveWindow'
+	}
 )
 
 autocmd(
-	{'WinLeave'},
+	{ 'WinLeave' },
 	{
-	    pattern = {'*'},
-	    command = 'setlocal nocursorline',
-        group = 'CursorLineOnlyInActiveWindow'
-    }
+		pattern = { '*' },
+		command = 'setlocal nocursorline',
+		group = 'CursorLineOnlyInActiveWindow'
+	}
 )
 
 autocmd(
-	{'CmdwinEnter'},
+	{ 'CmdwinEnter' },
 	{
-	    pattern = {'[:>]'},
-	    command = 'nmap <buffer> <CR> <CR>'
-    }
+		pattern = { '[:>]' },
+		command = 'nmap <buffer> <CR> <CR>'
+	}
 )
 
 
 autocmd(
-	{'TextYankPost'},
+	{ 'TextYankPost' },
 	{
-		pattern = {'*'},
-		callback = function() vim.highlight.on_yank({timeout="500"}) end
+		pattern = { '*' },
+		callback = function() vim.highlight.on_yank({ timeout = "500" }) end
 	}
 )
 
