@@ -136,4 +136,6 @@ o() {
     xdg-open "${1}" &> /dev/null
 }
 
+[ -x ~/bin/hey_gpt.sh ] && alias h="hey_gpt.sh"
 
+[ -x /usr/bin/exa ] && alias ls="exa"
