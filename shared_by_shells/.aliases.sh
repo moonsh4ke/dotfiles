@@ -63,12 +63,6 @@ alias g='grep -E --color=auto'
 
 alias mkdir='mkdir -pv'
 
-# Exa
-#alias l="exa --icons --group-directories-first"
-#alias la="exa --icons --group-directories-first -a"
-#alias ll="exa --icons --group-directories-first -lhg"
-
-
 # chmod
 # alias chmx='chmod +x'
 
@@ -136,6 +130,17 @@ o() {
     xdg-open "${1}" &> /dev/null
 }
 
-[ -x ~/bin/hey_gpt.sh ] && alias h="hey_gpt.sh"
+[ -x $HOME/bin/hey_gpt.sh ] && alias h="hey_gpt.sh"
 
 [ -x /usr/bin/exa ] && alias ls="exa"
+
+[ -x $HOME/.cargo/bin/eza ] \
+    || [ -x /bin/eza ] \
+    || [-x /usr/bin/eza ] \
+    && alias ls="eza \
+        --icons \
+        --group-directories-first \
+        --hyperlink \
+        --git \
+        --group \
+        --header"

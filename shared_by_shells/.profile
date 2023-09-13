@@ -16,6 +16,8 @@ fi
 
 [ -d "$HOME/.config/nvim/plugged/fzf/bin" ] && PATH="$HOME/.config/nvim/plugged/fzf/bin:$PATH"
 
+[ -d $HOME/.cargo/bin ] && PATH="$HOME/.cargo/bin:$PATH"
+
 # If nvim is installed and version is greater than v0.7 then use nvim as editor
 # otherwhise use vim
 if test -x /bin/nvim && \
@@ -33,3 +35,5 @@ fi
 
 GPG_TTY=`tty`
 export GPG_TTY
+
+[ -x ~/.cargo/bin/eza ] && alias ls=eza
