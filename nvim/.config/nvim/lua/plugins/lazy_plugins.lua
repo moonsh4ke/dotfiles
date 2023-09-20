@@ -39,10 +39,10 @@ return {
 	},
 
 	-- Buffer bar like modern editors display files being edited
-	-- {
-	-- 	'akinsho/bufferline.nvim',
-	-- 	config = function() require("bufferline").setup{} end
-	-- }
+	{
+		'akinsho/bufferline.nvim',
+		config = function() require("bufferline").setup{} end
+	},
 
 	-- Start screen (recent files, bookmarks, etc)
 	{
