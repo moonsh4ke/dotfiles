@@ -5,7 +5,7 @@ vim.cmd([[
     let &t_8b="\<Esc>[48;2;%lu;%lu;%lum"
     set termguicolors
     endif
-		colorscheme kanagawa
+    colorscheme kanagawa
 ]])
 
 -- vim.cmd[[
@@ -16,12 +16,12 @@ vim.cmd([[
 -- ]]
 
 -- vim.cmd[[
--- 	" let g:gruvbox_sign_column='bg0'
--- 	" let g:gruvbox_contrast_dark = 'hard'
--- 	" let g:gruvbox_invert_selection='0'
--- 	" let g:gruvbox_italic=1
--- 	" set background=dark
--- 	" colorscheme gruvbox
+--  " let g:gruvbox_sign_column='bg0'
+--  " let g:gruvbox_contrast_dark = 'hard'
+--  " let g:gruvbox_invert_selection='0'
+--  " let g:gruvbox_italic=1
+--  " set background=dark
+--  " colorscheme gruvbox
 -- ]]
 
 -- Tokyonight

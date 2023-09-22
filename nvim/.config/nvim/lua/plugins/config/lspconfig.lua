@@ -1,8 +1,8 @@
 -- Disable diagnostid virtual text
 vim.diagnostic.config(
-	{
-		virtual_text = false,
-	}
+  {
+    virtual_text = false,
+  }
 )
 -- Mappings.
 -- See `:help vim.diagnostic.*` for documentation on any of the below functions
@@ -60,7 +60,7 @@ require('lspconfig')['tsserver'].setup{
 }
 
 require'lspconfig'.cssls.setup{
-	on_attach = on_attach,
+  on_attach = on_attach,
   capabilities = capabilities,
   flags = lsp_flags
 }

@@ -7,7 +7,7 @@ require('telescope').setup{
     find_files = {
       theme = "dropdown",
     }
-	}
+  }
 }
 
 -- map = vim.api.nvim_set_keymap
