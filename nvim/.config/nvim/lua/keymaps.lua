@@ -17,8 +17,8 @@ map('', 'L', '$', {})
 map('n', 'j', 'gj', {noremap = true})
 map('n', 'k', 'gk', {noremap = true})
 
--- More intuitive Enter behavior
-map('n', '<CR>', 'o<Esc>', {noremap = true})
+-- -- More intuitive Enter behavior
+-- map('n', '<CR>', 'o<Esc>', {noremap = true})
 
 -- "System" clipboard quickies
 map('', '<Leader>y', '"+y', {})
@@ -42,9 +42,6 @@ map('', 'L', '$', {})
 map('n', 'j', 'gj', {noremap = true})
 map('n', 'k', 'gk', {noremap = true})
 
--- More intuitive Enter behavior
-map('n', '<CR>', 'o<Esc>', {noremap = true})
-
 -- Window mappings
 map('n', '<C-j>', '<C-w>j', {noremap = true})
 map('n', '<C-h>', '<C-w>h', {noremap = true})
@@ -61,6 +58,16 @@ map('n', '<C-l>', '<C-w>l', {noremap = true})
 -- map('n', '<Tab>', 'V>4l', {noremap = true})
 -- map('n', '<S-Tab>', 'V<4h', {noremap = true})
 map('i', '<S-Tab>', '<C-d>', {noremap = true})
+
+-- Center screen after jumps
+map('n', 'n', 'nzz', {noremap = true})
+map('n', 'N', 'Nzz', {noremap = true})
+map('n', '{', '{zz', {noremap = true})
+map('n', '}', '}zz', {noremap = true})
+map('n', '*', '*zz', {noremap = true})
+map('n', '#', '#zz', {noremap = true})
+map('n', '<C-o>', '<C-o>zz', {noremap = true})
+map('n', '<C-i>', '<C-i>zz', {noremap = true})
 
 -- "System" clipboard quickies
 map('', '<Leader>y', '"+y', {})
