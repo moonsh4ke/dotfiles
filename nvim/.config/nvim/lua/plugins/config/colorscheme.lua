@@ -1,12 +1,32 @@
--- Gruvbox
-vim.cmd([[
-    if exists('+termguicolors')
-    let &t_8f="\<Esc>[38;2;%lu;%lu;%lum"
-    let &t_8b="\<Esc>[48;2;%lu;%lu;%lum"
-    set termguicolors
-    endif
-    colorscheme kanagawa
-]])
+-- local theme_name = "kanagawa"
+--
+
+local theme_name = "kanagawa"
+
+local bg = "light"
+local current_hour = os.date("*t").hour
+if current_hour >= 16 or current_hour <= 8 then
+	bg = "dark"
+end
+
+vim.cmd("set bg=" .. bg)
+
+vim.cmd("colorscheme  " .. theme_name)
+
+-- vim.cmd("colorscheme kanagawa")
+
+local lualine = require("lualine")
+
+lualine.setup({
+	sections = {
+		lualine_c = {
+			function()
+				return vim.fn.pathshorten(vim.fn.fnamemodify(vim.fn.getcwd(), ":~"), 4)
+			end,
+			"filename",
+		},
+	},
+})
 
 -- vim.cmd[[
 -- let ayucolor="light"  " for light version of theme
