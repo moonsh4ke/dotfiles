@@ -20,3 +20,5 @@ set.splitbelow = true
 set.splitright = true
 set.termguicolors = true
 set.list = true
+set.scrolloff = 9999
+set.colorcolumn = '+0'
