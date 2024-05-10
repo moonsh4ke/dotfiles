@@ -144,3 +144,6 @@ o() {
         --git \
         --group \
         --header"
+
+alias trans="$EDITOR $HOME/Desktop/translations.txt"
+alias vocab="$EDITOR $HOME/Desktop/vocab.txt"
