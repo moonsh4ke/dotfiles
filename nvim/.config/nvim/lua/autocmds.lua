@@ -71,6 +71,14 @@ autocmd(
   }
 )
 
+autocmd(
+ {'FileType'},
+ {
+   pattern = {"qf"},
+   command = "nn <CR> :.cc<CR>"
+ }
+)
+
 -- Buffer listed help files
 -- autocmd(
 --  {'FileType'},
