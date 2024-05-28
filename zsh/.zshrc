@@ -13,7 +13,7 @@ fi
 DISABLE_AUTO_UPDATE="true"
 
 # Use vim style line editing in zsh
-bindkey -v
+# bindkey -v
 
 # Fix delay entering vi normal mode
 export KEYTIMEOUT=1
@@ -51,3 +51,10 @@ export NVM_DIR="$HOME/.nvm"
 # Slows down startup fix in: https://github.com/nvm-sh/nvm/issues/539#issuecomment-245791291
 # [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
 # [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
+
+# colored man pages using less
+if [ $(command -v less) ]
+then
+    export MANPAGER="less -R --use-color -Dd+r -Du+b"
+    export MANROFFOPT="-P -c"
+fi
