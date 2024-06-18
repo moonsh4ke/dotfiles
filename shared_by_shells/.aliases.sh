@@ -124,10 +124,18 @@ else
     alias tp="htop"
 fi
 
-# Improved xdg-open
-o() {
-    xdg-open "${1}" &> /dev/null
-}
+# xgd-open shortcut.
+# Note: normally I use gio open when using window manager (in this context xdg-open hasn't my desired functionality).
+if [ ! $(command -v gio) ];
+then
+    o() {
+        gio open "${1}" &> /dev/null
+    }
+else
+    o() {
+        xdg-open "${1}" &> /dev/null
+    }
+fi
 
 [ -x $HOME/bin/hey_gpt.sh ] && alias h="hey_gpt.sh"
 
