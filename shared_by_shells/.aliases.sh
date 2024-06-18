@@ -146,11 +146,7 @@ fi
     || [-x /usr/bin/eza ] \
     && alias ls="eza \
         --icons \
-        --group-directories-first \
-        --hyperlink \
-        --git \
-        --group \
-        --header"
+        --group-directories-first"
 
 alias trans="$EDITOR $HOME/Desktop/translations.txt"
 alias vocab="$EDITOR $HOME/Desktop/vocab.txt"
