@@ -8,6 +8,7 @@
 if [ -d $HOME/.zsh ]
 then
     source $HOME/.zsh/prompt.zsh
+    source $HOME/.zsh/fzf-marks.plugin.zsh
 fi
 
 DISABLE_AUTO_UPDATE="true"
