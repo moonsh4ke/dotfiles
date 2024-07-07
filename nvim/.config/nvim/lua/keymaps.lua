@@ -7,7 +7,7 @@ vim.keymap.set('i', '<C-s>', vim.lsp.buf.signature_help)
 vim.cmd[[let mapleader=" "]]
 
 -- Quick date (NOW!)
-map('n', '<Leader>N', 'i=strftime("%a %d %b %Y %H:%M")<CR>', {})
+map('n', '<Leader>N', 'a=strftime("%a %d %b %Y %H:%M")<CR>', {})
 
 -- Better horizontal movement
 map('', 'H', '^', {})
