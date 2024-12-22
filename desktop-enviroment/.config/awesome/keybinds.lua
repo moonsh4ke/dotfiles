@@ -119,6 +119,10 @@ globalkeys = gears.table.join(
 		awful.spawn("rofi -show combi -combi-modes 'window,run'")
 	end, { description = "Switch between windows" }),
 
+	awful.key({ modkey }, "m", function()
+		awful.spawn("rofi -show combi -combi-modes 'drun'")
+	end, { description = "Desktop files" }),
+
 	awful.key({ modkey }, "x", function()
 		awful.prompt.run({
 			prompt = "Run Lua code: ",

@@ -453,3 +453,5 @@ client.connect_signal("unfocus", function(c)
 	c.border_color = beautiful.border_normal
 end)
 -- }}}
+
+beautiful.notification_max_height = 200
