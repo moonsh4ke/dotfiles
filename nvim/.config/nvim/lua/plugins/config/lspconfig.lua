@@ -88,3 +88,22 @@ require'lspconfig'.pyright.setup{
   capabilities = capabilities,
   flags = lsp_flags
 }
+
+
+require'lspconfig'.html.setup{
+  on_attach = on_attach,
+  capabilities = capabilities,
+  flags = lsp_flags
+}
+
+require'lspconfig'.marksman.setup{
+  on_attach = on_attach,
+  capabilities = capabilities,
+  flags = lsp_flags
+}
+
+require'lspconfig'.gopls.setup{
+  on_attach = on_attach,
+  capabilities = capabilities,
+  flags = lsp_flags
+}

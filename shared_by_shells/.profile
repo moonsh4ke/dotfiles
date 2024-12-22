@@ -37,3 +37,5 @@ GPG_TTY=`tty`
 export GPG_TTY
 
 [ -x ~/.cargo/bin/eza ] && alias ls=eza
+
+[ -d "$HOME"/go/bin ] && PATH="$HOME"/go/bin:$PATH

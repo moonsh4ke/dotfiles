@@ -112,9 +112,11 @@ return {
           typescript = { { "prettier" } },
           javascriptreact = { { "prettier" } },
           typescriptreact = { { "prettier" } },
+          html = { { "prettier --parser=html"}},
           json = { { "prettier" } },
           python = { { "black" } },
           lua = { { "stylua" } },
+          go = { {"gofmt"} },
         },
       })
       vim.keymap.set("n", "<space>ff", require("conform").format, bufopts)
@@ -170,7 +172,7 @@ return {
   },
 
   -- Treesitter to put comment strings in embedded languages
-  -- 'JoosepAlviste/nvim-ts-context-commentstring'
+  'JoosepAlviste/nvim-ts-context-commentstring',
 
   -- lsp functionality without lsp
   {
@@ -182,7 +184,7 @@ return {
   },
 
   -- Debug treesitter
-  "nvim-treesitter/playground",
+  -- "nvim-treesitter/playground",
 
   {
     "pmizio/typescript-tools.nvim",
@@ -201,9 +203,6 @@ return {
 
   {
     "dmmulroy/tsc.nvim",
-    dependencies = {
-      "rcarriga/nvim-notify",
-    },
     config = function()
       require("tsc").setup()
     end,
@@ -308,6 +307,39 @@ return {
     opts = {
       -- add options here
       -- or leave it empty to use the default settings
+      default = {
+        -- file and directory options
+        dir_path = "Attachments", ---@type string
+        file_name = "Pasted image %Y-%m-%d-%H-%M-%S", ---@type string
+        use_absolute_path = false, ---@type boolean
+        relative_to_current_file = false, ---@type boolean
+    
+        -- template options
+        template = "$FILE_PATH", ---@type string
+        url_encode_path = false, ---@type boolean
+        relative_template_path = true, ---@type boolean
+        use_cursor_in_template = true, ---@type boolean
+        insert_mode_after_paste = true, ---@type boolean
+    
+        -- prompt options
+        prompt_for_file_name = true, ---@type boolean
+        show_dir_path_in_prompt = false, ---@type boolean
+    
+        -- base64 options
+        max_base64_size = 10, ---@type number
+        embed_image_as_base64 = false, ---@type boolean
+    
+        -- image options
+        process_cmd = "", ---@type string
+        copy_images = false, ---@type boolean
+        download_images = true, ---@type boolean
+    
+        -- drag and drop options
+        drag_and_drop = {
+          enabled = true, ---@type boolean
+          insert_mode = false, ---@type boolean
+        },
+      },
     },
   },
   {

@@ -60,14 +60,14 @@ map('n', '<C-l>', '<C-w>l', {noremap = true})
 map('i', '<S-Tab>', '<C-d>', {noremap = true})
 
 -- Center screen after jumps
-map('n', 'n', 'nzz', {noremap = true})
-map('n', 'N', 'Nzz', {noremap = true})
-map('n', '{', '{zz', {noremap = true})
-map('n', '}', '}zz', {noremap = true})
-map('n', '*', '*zz', {noremap = true})
-map('n', '#', '#zz', {noremap = true})
-map('n', '<C-o>', '<C-o>zz', {noremap = true})
-map('n', '<C-i>', '<C-i>zz', {noremap = true})
+-- map('n', 'n', 'nzz', {noremap = true})
+-- map('n', 'N', 'Nzz', {noremap = true})
+-- map('n', '{', '{zz', {noremap = true})
+-- map('n', '}', '}zz', {noremap = true})
+-- map('n', '*', '*zz', {noremap = true})
+-- map('n', '#', '#zz', {noremap = true})
+-- map('n', '<C-o>', '<C-o>zz', {noremap = true})
+-- map('n', '<C-i>', '<C-i>zz', {noremap = true})
 
 -- "System" clipboard quickies
 map('', '<Leader>y', '"+y', {})

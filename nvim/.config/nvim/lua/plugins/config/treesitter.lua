@@ -2,7 +2,7 @@
 
 require'nvim-treesitter.configs'.setup {
   highlight = {
-    enable = false,
+    enable = true,
     -- additional_vim_regex_highlighting=true,
     -- disable = {"javascript, javascriptreact", "markdown"}
   },
@@ -11,6 +11,7 @@ require'nvim-treesitter.configs'.setup {
   },
   autotag = {
     enable = true,
+    -- enable_close_on_slash = false,
     map_cr = true
   },
   -- context_commentstring = {

@@ -1,10 +1,6 @@
+mega : /home/moon/MEGA
 notes : /home/moon/MEGA/Notes
-cloud : /home/moon/MEGA
-repos : /home/moon/Repos
 pic : /home/moon/Pictures
-nvim : /home/moon/.config/nvim
-desk : /home/moon/Desktop
-rec : /home/moon/MEGA/Recetas
-code : /home/moon/Code
-playground : /home/moon/Code/Playground
-dotfiles : /home/moon/Repos/dotfiles
+vaults : /home/moon/MEGA/Notes/Obsidian Vaults
+mainvault : /home/moon/MEGA/Notes/Obsidian Vaults/Main
+readings : /home/moon/MEGA/Notes/Obsidian Vaults/Readings
